@@ -13,7 +13,6 @@ namespace EmailNotifier
     {
         static void Main(string[] args)
         {
-            //testpush
             var container = new UnityContainer();
             container.RegisterType<IEmailHelper, EmailHelper>();
             container.RegisterType<IConfigurationHelper, ConfigurationHelper>();
