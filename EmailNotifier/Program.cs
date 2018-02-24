@@ -16,10 +16,14 @@ namespace EmailNotifier
             var container = new UnityContainer();
             container.RegisterType<IEmailHelper, EmailHelper>();
             container.RegisterType<IConfigurationHelper, ConfigurationHelper>();
+            container.RegisterType<IApiHelper, ApiHelper>();
 
             var emailHelper = container.Resolve<IEmailHelper>();
+            var apiHelper = container.Resolve<IApiHelper>();
 
             var email = emailHelper.CreateEmail("This is a body", "This is a subject", "");
+
+            var temp = apiHelper.Get();
 
             emailHelper.SendEmail(email);
         }
