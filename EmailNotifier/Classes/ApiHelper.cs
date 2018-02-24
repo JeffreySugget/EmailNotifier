@@ -18,9 +18,9 @@ namespace EmailNotifier.Classes
                 BaseUrl = new Uri("https://192.168.0.10:8989/api")
             };
 
-            //var request = new RestRequest("https://192.168.0.10:8989/api/history?apikey=4446dcfa0a2a487098c8bc65bba6027e&sortKey=date&sortDirection=desc", Method.GET);
+            var request = new RestRequest("http://192.168.0.10:8989/api/history?apikey=4446dcfa0a2a487098c8bc65bba6027e&sortKey=date&sortDir=desc", Method.GET);
             //var request = new RestRequest("http://192.168.0.10:8989/api/system/status?apikey=4446dcfa0a2a487098c8bc65bba6027e", Method.GET);
-            var request = new RestRequest("http://192.168.0.10:8989/api/series?apikey=4446dcfa0a2a487098c8bc65bba6027e", Method.GET);
+            //var request = new RestRequest("http://192.168.0.10:8989/api/series?apikey=4446dcfa0a2a487098c8bc65bba6027e", Method.GET);
 
             var response = client.Execute(request);
 

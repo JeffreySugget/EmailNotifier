@@ -79,12 +79,17 @@
   <ItemGroup>
     <Compile Include="Classes\ApiHelper.cs" />
     <Compile Include="Classes\ConfigurationHelper.cs" />
+    <Compile Include="Classes\DataProcessor.cs" />
     <Compile Include="Classes\EmailHelper.cs" />
     <Compile Include="Interfaces\IApiHelper.cs" />
     <Compile Include="Interfaces\IConfigurationHelper.cs" />
+    <Compile Include="Interfaces\IDataProcessor.cs" />
     <Compile Include="Interfaces\IEmailHelper.cs" />
+    <Compile Include="Models\DownloadsRoot.cs" />
     <Compile Include="Models\Email.cs" />
-    <Compile Include="Models\SeriesRoot.cs" />
+    <Compile Include="Models\Episode.cs" />
+    <Compile Include="Models\EpisodeData.cs" />
+    <Compile Include="Models\Series.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

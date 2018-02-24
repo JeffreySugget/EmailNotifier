@@ -13,5 +13,7 @@ namespace EmailNotifier.Classes
         public string EmailPassword => ConfigurationManager.AppSettings["EmailPassword"];
 
         public string FromAddress => ConfigurationManager.AppSettings["FromAddress"];
+
+        public string KaylaShows => ConfigurationManager.AppSettings["KaylaShows"];
     }
 }

@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace EmailNotifier.Interfaces
 {
-    public interface IConfigurationHelper
+    public interface IDataProcessor
     {
-        string EmailPassword { get; }
-
-        string FromAddress { get; }
-
-        string KaylaShows { get; }
+        void ProcessKaylaShows();
     }
 }

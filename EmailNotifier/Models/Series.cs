@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 
 namespace EmailNotifier.Models
 {
-    class SeriesRoot
+    class Series
     {
         [JsonProperty(PropertyName = "title")]
         public string Title { get; set; }
-
-        [JsonProperty(PropertyName = "episodeCount")]
-        public string EpisodeCount { get; set; }
     }
 }
