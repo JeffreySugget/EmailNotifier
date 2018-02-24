@@ -28,31 +28,59 @@ namespace EmailNotifier.Classes
             var data = JsonConvert.DeserializeObject<DownloadsRoot>(json);
 
             var kaylaShows = _configurationHelper.KaylaShows.Split('|');
-            var listOfShows = new List<Episode>();
+            var subjectLines = new List<string>();
 
             foreach (var e in data.Episodes)
             {
-                foreach (var s in kaylaShows)
+                if (e.EventType == "grabbed")
                 {
-                    if (e.Series.Title == s)
+                    foreach (var s in kaylaShows)
                     {
-                        if (DateTime.Parse(e.Date) >= DateTime.UtcNow.AddMinutes(-15))
+                        if (e.Series.Title.ToLower() == s.ToLower())
                         {
-                            listOfShows.Add(e.Episode);
+                            if (DateTime.Parse(e.Date) >= DateTime.UtcNow.AddMinutes(-15))
+                            {
+                                CreateShowList(e, subjectLines);
+                            }
                         }
                     }
                 }
             }
 
-            if (listOfShows.Count > 0)
+            if (subjectLines.Count > 0)
             {
-                SendEmail(listOfShows);
+                SendEmail(subjectLines);
             }
         }
 
-        private void SendEmail(List<Episode> shows)
+        private void CreateShowList(EpisodeData episodeData, List<string> subjectLines)
         {
+            var sb = new StringBuilder();
+            sb.AppendLine($"Series: {episodeData.Series.Title}");
+            sb.AppendLine();
+            sb.AppendLine($"Episode Title: {episodeData.Episode.Title}");
+            sb.AppendLine();
+            sb.AppendLine($"Episode Number: {episodeData.Episode.EpisodeNumber}");
+            sb.AppendLine();
+
+            subjectLines.Add(sb.ToString());
+        }
+
+        private void SendEmail(List<string> subjectLines)
+        {
+            var sb = new StringBuilder();
+
+            sb.AppendLine("The following shows have been downloaded");
+            sb.AppendLine();
             
+            foreach (var l in subjectLines)
+            {
+                sb.AppendLine(l);
+            }
+
+            var email = _emailHelper.CreateEmail(sb.ToString(), "Shows Downloaded", "jeffrey.sugget@gmail.com");
+
+            _emailHelper.SendEmail(email);
         }
     }
 }

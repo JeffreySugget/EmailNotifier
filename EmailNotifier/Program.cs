@@ -19,14 +19,9 @@ namespace EmailNotifier
             container.RegisterType<IApiHelper, ApiHelper>();
             container.RegisterType<IDataProcessor, DataProcessor>();
 
-            var emailHelper = container.Resolve<IEmailHelper>();
             var dataProcessor = container.Resolve<IDataProcessor>();
 
-            var email = emailHelper.CreateEmail("This is a body", "This is a subject", "");
-
             dataProcessor.ProcessKaylaShows();
-
-            emailHelper.SendEmail(email);
         }
     }
 }
