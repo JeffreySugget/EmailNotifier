@@ -22,10 +22,36 @@ namespace EmailNotifier.Classes
             _emailHelper = emailHelper;
         }
 
-        public void ProcessKaylaShows()
+        public void ProcessShows()
         {
             var json = _apiHelper.Get();
             var data = JsonConvert.DeserializeObject<DownloadsRoot>(json);
+
+            var subjectLines = new List<string>();
+
+            foreach (var e in data.Episodes)
+            {
+                if (e.EventType == "grabbed")
+                {
+                    if (!_configurationHelper.KaylaShows.Contains(e.Episode.Title))
+                    {
+                        CreateShowList(e, subjectLines);
+                    }
+                }
+            }
+
+            if (subjectLines.Count > 0)
+            {
+                SendEmail(subjectLines, "jeffrey.sugget@gmail.com");
+            }
+        }
+
+        public void ProcessOtherShows()
+        {
+            var json = _apiHelper.Get();
+            var data = JsonConvert.DeserializeObject<DownloadsRoot>(json);
+
+            //var grabbed = data.Where(x => x.EventType == "grabbed");
 
             var kaylaShows = _configurationHelper.KaylaShows.Split('|');
             var subjectLines = new List<string>();
@@ -34,13 +60,16 @@ namespace EmailNotifier.Classes
             {
                 if (e.EventType == "grabbed")
                 {
-                    foreach (var s in kaylaShows)
+                    if (kaylaShows.Contains(e.Episode.Title))
                     {
-                        if (e.Series.Title.ToLower() == s.ToLower())
+                        foreach (var s in kaylaShows)
                         {
-                            if (DateTime.Parse(e.Date) >= DateTime.UtcNow.AddMinutes(-15))
+                            if (e.Series.Title.ToLower() == s.ToLower())
                             {
-                                CreateShowList(e, subjectLines);
+                                if (DateTime.Parse(e.Date) >= DateTime.UtcNow.AddMinutes(-15))
+                                {
+                                    CreateShowList(e, subjectLines);
+                                }
                             }
                         }
                     }
@@ -49,7 +78,7 @@ namespace EmailNotifier.Classes
 
             if (subjectLines.Count > 0)
             {
-                SendEmail(subjectLines);
+                SendEmail(subjectLines, "kayla.sugget@gmail.com");
             }
         }
 
@@ -66,7 +95,7 @@ namespace EmailNotifier.Classes
             subjectLines.Add(sb.ToString());
         }
 
-        private void SendEmail(List<string> subjectLines)
+        private void SendEmail(List<string> subjectLines, string email)
         {
             var sb = new StringBuilder();
 
@@ -78,9 +107,7 @@ namespace EmailNotifier.Classes
                 sb.AppendLine(l);
             }
 
-            var email = _emailHelper.CreateEmail(sb.ToString(), "Shows Downloaded", "jeffrey.sugget@gmail.com");
-
-            _emailHelper.SendEmail(email);
+            _emailHelper.SendEmail(_emailHelper.CreateEmail(sb.ToString(), "Shows Downloaded", email));
         }
     }
 }

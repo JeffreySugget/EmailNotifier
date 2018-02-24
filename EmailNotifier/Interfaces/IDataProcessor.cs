@@ -8,6 +8,8 @@ namespace EmailNotifier.Interfaces
 {
     public interface IDataProcessor
     {
-        void ProcessKaylaShows();
+        void ProcessOtherShows();
+
+        void ProcessShows();
     }
 }

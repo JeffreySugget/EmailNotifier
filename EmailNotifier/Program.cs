@@ -21,7 +21,7 @@ namespace EmailNotifier
 
             var dataProcessor = container.Resolve<IDataProcessor>();
 
-            dataProcessor.ProcessKaylaShows();
+            dataProcessor.ProcessOtherShows();
         }
     }
 }
