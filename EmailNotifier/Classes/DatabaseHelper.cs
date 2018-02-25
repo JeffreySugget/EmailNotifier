@@ -32,13 +32,9 @@ namespace EmailNotifier.Classes
 
         private void AddSonarrData()
         {
-            ShowOutput("Please enter your Sonarr API Key: ");
+            var apiKey = GetUserInput("Please enter your Sonarr API Key: ");
 
-            var apiKey = GetUserInput();
-
-            ShowOutput("Please enter your Sonarr IP and Port (e.g. https:\\\\x.x.x.x:xxxx)");
-
-            var ipAddress = GetUserInput();
+            var ipAddress = GetUserInput("Please enter your Sonarr IP and Port (e.g. https:\\\\x.x.x.x:xxxx)");
 
             var sql = $@"INSERT INTO SonarrInfo (ApiKey, IpAddress) VALUES ('{apiKey}', '{ipAddress}')";
 
@@ -49,13 +45,11 @@ namespace EmailNotifier.Classes
         {
             var addresses = new List<string>();
 
-            ShowOutput("How many email addresses do you want to add: ");
-            var number = int.Parse(GetUserInput());
+            var number = int.Parse(GetUserInput("How many email addresses do you want to add: "));
 
             for (var i = 0; i < number; i++)
             {
-                ShowOutput("Please enter an email address for messages to be sent to: ");
-                addresses.Add(GetUserInput());
+                addresses.Add(GetUserInput("Please enter an email address for messages to be sent to: "));
             }
 
             foreach (var a in addresses)
@@ -83,14 +77,11 @@ namespace EmailNotifier.Classes
             //TODO: create a list of shows and ask user which email address is attached to them
         }
 
-        private string GetUserInput()
-        {
-            return Console.ReadLine();
-        }
-
-        private void ShowOutput(string message)
+        private string GetUserInput(string message)
         {
             Console.WriteLine(message);
+
+            return Console.ReadLine();
         }
     }
 }
