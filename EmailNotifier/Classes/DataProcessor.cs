@@ -54,8 +54,6 @@ namespace EmailNotifier.Classes
             var json = _apiHelper.Get();
             var data = JsonConvert.DeserializeObject<DownloadsRoot>(json);
 
-            //var grabbed = data.Where(x => x.EventType == "grabbed");
-
             var kaylaShows = _configurationHelper.KaylaShows.Split('|');
             var subjectLines = new List<string>();
 

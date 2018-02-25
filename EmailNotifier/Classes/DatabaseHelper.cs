@@ -27,17 +27,6 @@ namespace EmailNotifier.Classes
                         CREATE TABLE EmailInfo (Id INTEGER PRIMARY KEY AUTOINCREMENT, Address Text);
                         CREATE TABLE ShowInfo (Id INTEGER PRIMARY KEY AUTOINCREMENT, ShowName TEXT, EmailId INTEGER, FOREIGN KEY(EmailId) REFERENCES EmailInfo(Id));";
 
-            //TODO: Move sql code to stand alone method
-            //using (var sqlConn = new SQLiteConnection("Data Source=SonarrInfoDatabase;Version=3;"))
-            //{
-            //    sqlConn.Open();
-
-            //    using (var sqlCmd = new SQLiteCommand(sql, sqlConn))
-            //    {
-            //        sqlCmd.ExecuteNonQuery();
-            //    }
-            //}
-
             ExecuteNonQuery(sql);
         }
 
@@ -52,16 +41,6 @@ namespace EmailNotifier.Classes
             var ipAddress = GetUserInput();
 
             var sql = $@"INSERT INTO SonarrInfo (ApiKey, IpAddress) VALUES ('{apiKey}', '{ipAddress}')";
-
-            //using (var sqlConn = new SQLiteConnection("Data Source=SonarrInfoDatabase;Version=3;"))
-            //{
-            //    sqlConn.Open();
-
-            //    using (var sqlCmd = new SQLiteCommand(sql, sqlConn))
-            //    {
-            //        sqlCmd.ExecuteNonQuery();
-            //    }
-            //}
 
             ExecuteNonQuery(sql);
         }
