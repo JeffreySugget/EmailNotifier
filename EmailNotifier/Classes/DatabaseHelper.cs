@@ -15,6 +15,11 @@ namespace EmailNotifier.Classes
         {
             if (!File.Exists($"{Environment.CurrentDirectory}\\SonarrInfoDatabase"))
             {
+                if (!Environment.UserInteractive)
+                {
+                    throw new ApplicationException("Please run interactivly first so the database can be created");
+                }
+
                 SQLiteConnection.CreateFile("SonarrInfoDatabase");
                 CreateTables();
                 AddSonarrData();
