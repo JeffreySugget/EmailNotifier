@@ -13,6 +13,7 @@ namespace EmailNotifier
     {
         static void Main(string[] args)
         {
+            //TODO: move DI code to own class
             var container = new UnityContainer();
             container.RegisterType<IEmailHelper, EmailHelper>();
             container.RegisterType<IConfigurationHelper, ConfigurationHelper>();
@@ -22,10 +23,11 @@ namespace EmailNotifier
 
             var databaseHelper = container.Resolve<IDatabaseHelper>();
 
-            databaseHelper.CreateDatabase();
+            //databaseHelper.CreateDatabase();
 
             var dataProcessor = container.Resolve<IDataProcessor>();
 
+            dataProcessor.ProcessShows();
             dataProcessor.ProcessOtherShows();
         }
     }

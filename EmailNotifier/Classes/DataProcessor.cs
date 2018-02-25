@@ -35,7 +35,10 @@ namespace EmailNotifier.Classes
                 {
                     if (!_configurationHelper.KaylaShows.Contains(e.Episode.Title))
                     {
-                        CreateShowList(e, subjectLines);
+                        if (DateTime.Parse(e.Date) >= DateTime.Now.AddMinutes(-15))
+                        {
+                            CreateShowList(e, subjectLines);
+                        }
                     }
                 }
             }
@@ -66,7 +69,7 @@ namespace EmailNotifier.Classes
                         {
                             if (e.Series.Title.ToLower() == s.ToLower())
                             {
-                                if (DateTime.Parse(e.Date) >= DateTime.UtcNow.AddMinutes(-15))
+                                if (DateTime.Parse(e.Date) >= DateTime.Now.AddMinutes(-15))
                                 {
                                     CreateShowList(e, subjectLines);
                                 }
