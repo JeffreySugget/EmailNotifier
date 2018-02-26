@@ -28,8 +28,7 @@ namespace EmailNotifier.Classes
 
         private void CreateTables()
         {
-            //TODO: Add columns to SonarrInfo for email (sender) and password
-            var sql = @"CREATE TABLE SonarrInfo (Id INTEGER PRIMARY KEY AUTOINCREMENT, ApiKey TEXT, IpAddress TEXT);
+            var sql = @"CREATE TABLE SonarrInfo (Id INTEGER PRIMARY KEY AUTOINCREMENT, ApiKey TEXT, IpAddress TEXT, Email TEXT, Password TEXT);
                         CREATE TABLE EmailInfo (Id INTEGER PRIMARY KEY AUTOINCREMENT, Address Text);
                         CREATE TABLE ShowInfo (Id INTEGER PRIMARY KEY AUTOINCREMENT, ShowName TEXT, EmailId INTEGER, FOREIGN KEY(EmailId) REFERENCES EmailInfo(Id));";
 
@@ -38,11 +37,15 @@ namespace EmailNotifier.Classes
 
         private void AddSonarrData()
         {
-            var apiKey = GetUserInput("Please enter your Sonarr API Key: ");
+            var apiKey = GetUserInput("Please enter your Sonarr API Key:");
 
-            var ipAddress = GetUserInput("Please enter your Sonarr IP and Port (e.g. https:\\\\x.x.x.x:xxxx)");
+            var ipAddress = GetUserInput("Please enter your Sonarr IP and Port (e.g. https:\\\\x.x.x.x:xxxx):");
 
-            var sql = $@"INSERT INTO SonarrInfo (ApiKey, IpAddress) VALUES ('{apiKey}', '{ipAddress}')";
+            var email = GetUserInput("Please enter the email Sonarr will send emails from:");
+
+            var password = GetUserInput("Please enter the password for the Sonarr email account:");
+
+            var sql = $@"INSERT INTO SonarrInfo (ApiKey, IpAddress, Email, Password) VALUES ('{apiKey}', '{ipAddress}', '{email}', '{password}')";
 
             ExecuteNonQuery(sql);
         }
