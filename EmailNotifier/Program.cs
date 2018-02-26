@@ -23,7 +23,7 @@ namespace EmailNotifier
 
             var databaseHelper = container.Resolve<IDatabaseHelper>();
 
-            //databaseHelper.CreateDatabase();
+            databaseHelper.CreateDatabase();
 
             var dataProcessor = container.Resolve<IDataProcessor>();
 

@@ -23,7 +23,43 @@ namespace EmailNotifier.Classes
                 SQLiteConnection.CreateFile("SonarrInfoDatabase");
                 CreateTables();
                 AddSonarrData();
+                AddShowData();
             }
+        }
+
+        public string GetApiCall(string endPoint, string parameters = null)
+        {
+            var getSonarrInfoSql = "SELECT ApiKey, IpAddress FROM SonarrInfo";
+            var apiCall = new StringBuilder();
+            var sonarrInfo = new List<string>();
+
+            using (var sqlConn = new SQLiteConnection("Data Source=SonarrInfoDatabase;Version=3;"))
+            {
+                sqlConn.Open();
+                SQLiteDataReader dr;
+
+                using (var sqlCmd = new SQLiteCommand(getSonarrInfoSql, sqlConn))
+                {
+                    dr = sqlCmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        sonarrInfo.Add(dr["IpAddress"].ToString());
+                        sonarrInfo.Add(dr["ApiKey"].ToString());
+                    }
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(parameters))
+            {
+                apiCall.Append($"{sonarrInfo[0]}/{endPoint}?apiKey={sonarrInfo[1]}&{parameters}");
+            }
+            else
+            {
+                apiCall.Append($"{sonarrInfo[0]}/{endPoint}?apiKey={sonarrInfo[1]}");
+            }
+
+            return apiCall.ToString();
         }
 
         private void CreateTables()
@@ -84,6 +120,8 @@ namespace EmailNotifier.Classes
 
         private void AddShowData()
         {
+            var apiCall = GetApiCall("api/series");
+
             //TODO: get email addressess and add to list
             //TODO: create a list of shows and ask user which email address is attached to them
         }

@@ -9,5 +9,7 @@ namespace EmailNotifier.Interfaces
     public interface IDatabaseHelper
     {
         void CreateDatabase();
+
+        string GetApiCall(string endPoint, string parameters = null);
     }
 }
