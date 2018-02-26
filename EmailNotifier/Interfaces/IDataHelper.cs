@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace EmailNotifier.Interfaces
 {
-    public interface IDatabaseHelper
+    public interface IDataHelper
     {
-        void CreateDatabase();
-
         string GetApiCall(string endPoint, string parameters = null);
+
+        string GetBaseUrl();
     }
 }

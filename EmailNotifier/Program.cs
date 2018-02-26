@@ -19,11 +19,12 @@ namespace EmailNotifier
             container.RegisterType<IConfigurationHelper, ConfigurationHelper>();
             container.RegisterType<IApiHelper, ApiHelper>();
             container.RegisterType<IDataProcessor, DataProcessor>();
-            container.RegisterType<IDatabaseHelper, DatabaseHelper>();
+            container.RegisterType<IDatabaseCreator, DatabaseCreator>();
+            container.RegisterType<IDataHelper, DataHelper>();
 
-            var databaseHelper = container.Resolve<IDatabaseHelper>();
+            var databaseCreator = container.Resolve<IDatabaseCreator>();
 
-            databaseHelper.CreateDatabase();
+            databaseCreator.CreateDatabase();
 
             var dataProcessor = container.Resolve<IDataProcessor>();
 

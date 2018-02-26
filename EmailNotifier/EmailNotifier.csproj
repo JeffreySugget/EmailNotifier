@@ -97,12 +97,14 @@
   <ItemGroup>
     <Compile Include="Classes\ApiHelper.cs" />
     <Compile Include="Classes\ConfigurationHelper.cs" />
-    <Compile Include="Classes\DatabaseHelper.cs" />
+    <Compile Include="Classes\DatabaseCreator.cs" />
+    <Compile Include="Classes\DataHelper.cs" />
     <Compile Include="Classes\DataProcessor.cs" />
     <Compile Include="Classes\EmailHelper.cs" />
     <Compile Include="Interfaces\IApiHelper.cs" />
     <Compile Include="Interfaces\IConfigurationHelper.cs" />
-    <Compile Include="Interfaces\IDatabaseHelper.cs" />
+    <Compile Include="Interfaces\IDatabaseCreator.cs" />
+    <Compile Include="Interfaces\IDataHelper.cs" />
     <Compile Include="Interfaces\IDataProcessor.cs" />
     <Compile Include="Interfaces\IEmailHelper.cs" />
     <Compile Include="Models\DownloadsRoot.cs" />
@@ -114,7 +116,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

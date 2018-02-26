@@ -9,8 +9,15 @@ using System.IO;
 
 namespace EmailNotifier.Classes
 {
-    public class DatabaseHelper : IDatabaseHelper
+    public class DatabaseCreator : IDatabaseCreator
     {
+        private readonly IDataHelper _dataHelper;
+
+        public DatabaseCreator(IDataHelper dataHelper)
+        {
+            _dataHelper = dataHelper;
+        }
+
         public void CreateDatabase()
         {
             if (!File.Exists($"{Environment.CurrentDirectory}\\SonarrInfoDatabase"))
@@ -27,41 +34,6 @@ namespace EmailNotifier.Classes
             }
         }
 
-        public string GetApiCall(string endPoint, string parameters = null)
-        {
-            var getSonarrInfoSql = "SELECT ApiKey, IpAddress FROM SonarrInfo";
-            var apiCall = new StringBuilder();
-            var sonarrInfo = new List<string>();
-
-            using (var sqlConn = new SQLiteConnection("Data Source=SonarrInfoDatabase;Version=3;"))
-            {
-                sqlConn.Open();
-                SQLiteDataReader dr;
-
-                using (var sqlCmd = new SQLiteCommand(getSonarrInfoSql, sqlConn))
-                {
-                    dr = sqlCmd.ExecuteReader();
-
-                    while (dr.Read())
-                    {
-                        sonarrInfo.Add(dr["IpAddress"].ToString());
-                        sonarrInfo.Add(dr["ApiKey"].ToString());
-                    }
-                }
-            }
-
-            if (!string.IsNullOrWhiteSpace(parameters))
-            {
-                apiCall.Append($"{sonarrInfo[0]}/{endPoint}?apiKey={sonarrInfo[1]}&{parameters}");
-            }
-            else
-            {
-                apiCall.Append($"{sonarrInfo[0]}/{endPoint}?apiKey={sonarrInfo[1]}");
-            }
-
-            return apiCall.ToString();
-        }
-
         private void CreateTables()
         {
             var sql = @"CREATE TABLE SonarrInfo (Id INTEGER PRIMARY KEY AUTOINCREMENT, ApiKey TEXT, IpAddress TEXT, Email TEXT, Password TEXT);
@@ -75,7 +47,7 @@ namespace EmailNotifier.Classes
         {
             var apiKey = GetUserInput("Please enter your Sonarr API Key:");
 
-            var ipAddress = GetUserInput("Please enter your Sonarr IP and Port (e.g. https:\\\\x.x.x.x:xxxx):");
+            var ipAddress = GetUserInput("Please enter your Sonarr IP and Port (e.g. http:\\\\x.x.x.x:xxxx):");
 
             var email = GetUserInput("Please enter the email Sonarr will send emails from:");
 
@@ -120,7 +92,7 @@ namespace EmailNotifier.Classes
 
         private void AddShowData()
         {
-            var apiCall = GetApiCall("api/series");
+            var apiCall = _dataHelper.GetApiCall("api/series");
 
             //TODO: get email addressess and add to list
             //TODO: create a list of shows and ask user which email address is attached to them

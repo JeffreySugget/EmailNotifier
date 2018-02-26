@@ -11,16 +11,22 @@ namespace EmailNotifier.Classes
 {
     public class ApiHelper : IApiHelper
     {
-        public string Get()
+        private readonly IDataHelper _dataHelper;
+
+        public ApiHelper(IDataHelper dataHelper)
+        {
+            _dataHelper = dataHelper;
+        }
+
+        public string Get(string apiCall)
         {
             var client = new RestClient
             {
-                BaseUrl = new Uri("https://192.168.0.10:8989/api")
+                BaseUrl = new Uri(_dataHelper.GetBaseUrl())
             };
 
-            var request = new RestRequest("http://192.168.0.10:8989/api/history?apikey=4446dcfa0a2a487098c8bc65bba6027e&sortKey=date&sortDir=desc", Method.GET);
-            //var request = new RestRequest("http://192.168.0.10:8989/api/system/status?apikey=4446dcfa0a2a487098c8bc65bba6027e", Method.GET);
-            //var request = new RestRequest("http://192.168.0.10:8989/api/series?apikey=4446dcfa0a2a487098c8bc65bba6027e", Method.GET);
+            //var request = new RestRequest("http://192.168.0.10:8989/api/history?apikey=4446dcfa0a2a487098c8bc65bba6027e&sortKey=date&sortDir=desc", Method.GET);
+            var request = new RestRequest(apiCall, Method.GET);
 
             var response = client.Execute(request);
 

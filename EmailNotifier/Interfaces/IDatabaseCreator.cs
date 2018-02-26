@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace EmailNotifier.Interfaces
 {
-    public interface IApiHelper
+    public interface IDatabaseCreator
     {
-        string Get(string apiCall);
+        void CreateDatabase();
     }
 }

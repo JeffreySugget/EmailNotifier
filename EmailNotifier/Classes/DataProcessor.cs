@@ -14,17 +14,19 @@ namespace EmailNotifier.Classes
         private readonly IApiHelper _apiHelper;
         private readonly IConfigurationHelper _configurationHelper;
         private readonly IEmailHelper _emailHelper;
+        private readonly IDataHelper _dataHelper;
 
-        public DataProcessor(IApiHelper apiHelper, IConfigurationHelper configurationHelper, IEmailHelper emailHelper)
+        public DataProcessor(IApiHelper apiHelper, IConfigurationHelper configurationHelper, IEmailHelper emailHelper, IDataHelper dataHelper)
         {
             _apiHelper = apiHelper;
             _configurationHelper = configurationHelper;
             _emailHelper = emailHelper;
+            _dataHelper = dataHelper;
         }
 
         public void ProcessShows()
         {
-            var json = _apiHelper.Get();
+            var json = _apiHelper.Get(_dataHelper.GetApiCall("api/history", "sortKey=date&sortDir=desc"));
             var data = JsonConvert.DeserializeObject<DownloadsRoot>(json);
 
             var subjectLines = new List<string>();
@@ -52,7 +54,7 @@ namespace EmailNotifier.Classes
 
         public void ProcessOtherShows()
         {
-            var json = _apiHelper.Get();
+            var json = _apiHelper.Get(_dataHelper.GetApiCall("api/history", "sortKey=date&sortDir=desc"));
             var data = JsonConvert.DeserializeObject<DownloadsRoot>(json);
 
             var kaylaShows = _configurationHelper.KaylaShows.Split('|');
