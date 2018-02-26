@@ -28,6 +28,7 @@ namespace EmailNotifier.Classes
 
         private void CreateTables()
         {
+            //TODO: Add columns to SonarrInfo for email (sender) and password
             var sql = @"CREATE TABLE SonarrInfo (Id INTEGER PRIMARY KEY AUTOINCREMENT, ApiKey TEXT, IpAddress TEXT);
                         CREATE TABLE EmailInfo (Id INTEGER PRIMARY KEY AUTOINCREMENT, Address Text);
                         CREATE TABLE ShowInfo (Id INTEGER PRIMARY KEY AUTOINCREMENT, ShowName TEXT, EmailId INTEGER, FOREIGN KEY(EmailId) REFERENCES EmailInfo(Id));";
@@ -59,7 +60,9 @@ namespace EmailNotifier.Classes
 
             foreach (var a in addresses)
             {
-                //TODO: insert into database
+                var sql = $"INSERT INTO EmailInfo (Address) VALUES ('{a}')";
+
+                ExecuteNonQuery(sql);
             }
         }
 

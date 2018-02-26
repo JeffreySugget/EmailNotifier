@@ -29,11 +29,12 @@ namespace EmailNotifier.Classes
 
             var subjectLines = new List<string>();
 
+            //foreach (var e in data.Episodes.Where(x => x.EventType == "grabbed"))
             foreach (var e in data.Episodes)
             {
                 if (e.EventType == "grabbed")
                 {
-                    if (!_configurationHelper.KaylaShows.Contains(e.Episode.Title))
+                    if (!_configurationHelper.KaylaShows.Split('|').Contains(e.Series.Title, StringComparer.InvariantCultureIgnoreCase))
                     {
                         if (DateTime.Parse(e.Date) >= DateTime.Now.AddMinutes(-15))
                         {
@@ -61,7 +62,7 @@ namespace EmailNotifier.Classes
             {
                 if (e.EventType == "grabbed")
                 {
-                    if (kaylaShows.Contains(e.Episode.Title))
+                    if (kaylaShows.Contains(e.Series.Title, StringComparer.InvariantCultureIgnoreCase))
                     {
                         foreach (var s in kaylaShows)
                         {
