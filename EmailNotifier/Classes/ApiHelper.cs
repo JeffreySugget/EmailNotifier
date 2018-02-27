@@ -23,6 +23,7 @@ namespace EmailNotifier.Classes
             var client = new RestClient
             {
                 BaseUrl = new Uri(_dataHelper.GetBaseUrl())
+               // BaseUrl = new Uri("http://192.168.0.10:8989")
             };
 
             //var request = new RestRequest("http://192.168.0.10:8989/api/history?apikey=4446dcfa0a2a487098c8bc65bba6027e&sortKey=date&sortDir=desc", Method.GET);

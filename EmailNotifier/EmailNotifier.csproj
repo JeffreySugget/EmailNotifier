@@ -112,6 +112,7 @@
     <Compile Include="Models\Episode.cs" />
     <Compile Include="Models\EpisodeData.cs" />
     <Compile Include="Models\Series.cs" />
+    <Compile Include="Models\SeriesRoot.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

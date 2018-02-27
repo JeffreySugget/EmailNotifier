@@ -27,6 +27,7 @@ namespace EmailNotifier.Classes
         public void ProcessShows()
         {
             var json = _apiHelper.Get(_dataHelper.GetApiCall("api/history", "sortKey=date&sortDir=desc"));
+            //var json = _apiHelper.Get("");
             var data = JsonConvert.DeserializeObject<DownloadsRoot>(json);
 
             var subjectLines = new List<string>();
@@ -38,7 +39,7 @@ namespace EmailNotifier.Classes
                 {
                     if (!_configurationHelper.KaylaShows.Split('|').Contains(e.Series.Title, StringComparer.InvariantCultureIgnoreCase))
                     {
-                        if (DateTime.Parse(e.Date) >= DateTime.Now.AddMinutes(-15))
+                        if (DateTime.Parse(e.Date) >= DateTime.Now.AddHours(-1))
                         {
                             CreateShowList(e, subjectLines);
                         }
@@ -55,6 +56,7 @@ namespace EmailNotifier.Classes
         public void ProcessOtherShows()
         {
             var json = _apiHelper.Get(_dataHelper.GetApiCall("api/history", "sortKey=date&sortDir=desc"));
+            //var json = _apiHelper.Get("");
             var data = JsonConvert.DeserializeObject<DownloadsRoot>(json);
 
             var kaylaShows = _configurationHelper.KaylaShows.Split('|');
@@ -70,7 +72,7 @@ namespace EmailNotifier.Classes
                         {
                             if (e.Series.Title.ToLower() == s.ToLower())
                             {
-                                if (DateTime.Parse(e.Date) >= DateTime.Now.AddMinutes(-15))
+                                if (DateTime.Parse(e.Date) >= DateTime.Now.AddHours(-1))
                                 {
                                     CreateShowList(e, subjectLines);
                                 }

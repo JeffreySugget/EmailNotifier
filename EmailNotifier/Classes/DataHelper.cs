@@ -66,5 +66,29 @@ namespace EmailNotifier.Classes
 
             return baseUrl;
         }
+
+        public Dictionary<string, int> GetEmails()
+        {
+            var emailInfo = new Dictionary<string, int>();
+
+            var sql = "SELECT * FROM EmailInfo";
+
+            using (var sqlConn = new SQLiteConnection("Data Source=SonarrInfoDatabase;Version=3;"))
+            {
+                sqlConn.Open();
+
+                using (var sqlCmd = new SQLiteCommand(sql, sqlConn))
+                {
+                    var dr = sqlCmd.ExecuteReader();
+
+                    while(dr.Read())
+                    {
+                        emailInfo.Add(dr["Address"].ToString(), int.Parse(dr["Id"].ToString()));
+                    }
+                }
+            }
+
+            return emailInfo;
+        }
     }
 }

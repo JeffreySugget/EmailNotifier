@@ -6,16 +6,20 @@ using System.Threading.Tasks;
 using EmailNotifier.Interfaces;
 using System.Data.SQLite;
 using System.IO;
+using EmailNotifier.Models;
+using Newtonsoft.Json;
 
 namespace EmailNotifier.Classes
 {
     public class DatabaseCreator : IDatabaseCreator
     {
         private readonly IDataHelper _dataHelper;
+        private readonly IApiHelper _apiHelper;
 
-        public DatabaseCreator(IDataHelper dataHelper)
+        public DatabaseCreator(IDataHelper dataHelper, IApiHelper apiHelper)
         {
             _dataHelper = dataHelper;
+            _apiHelper = apiHelper;
         }
 
         public void CreateDatabase()
@@ -30,6 +34,7 @@ namespace EmailNotifier.Classes
                 SQLiteConnection.CreateFile("SonarrInfoDatabase");
                 CreateTables();
                 AddSonarrData();
+                AddEmailAddress();
                 AddShowData();
             }
         }
@@ -93,6 +98,16 @@ namespace EmailNotifier.Classes
         private void AddShowData()
         {
             var apiCall = _dataHelper.GetApiCall("api/series");
+
+            var json = _apiHelper.Get(apiCall);
+            var data = JsonConvert.DeserializeObject<List<SeriesRoot>>(json);
+
+            var emailInfo = _dataHelper.GetEmails();
+
+            foreach (var s in data)
+            {
+                GetUserInput($"Which user should be emailed about show {s.Title} ? ({emailInfo.Values})");
+            }
 
             //TODO: get email addressess and add to list
             //TODO: create a list of shows and ask user which email address is attached to them

@@ -11,5 +11,7 @@ namespace EmailNotifier.Interfaces
         string GetApiCall(string endPoint, string parameters = null);
 
         string GetBaseUrl();
+
+        Dictionary<string, int> GetEmails();
     }
 }
