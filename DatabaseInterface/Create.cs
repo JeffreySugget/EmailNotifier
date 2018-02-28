@@ -21,6 +21,11 @@ namespace DatabaseInterface
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
+            CheckTextBoxes();
+        }
+
+        private void CheckTextBoxes()
+        {
             if (string.IsNullOrWhiteSpace(txtWorkingDir.Text))
             {
                 MessageBox.Show("Please enter your working directory before continuing!", MessageHeading.Error);
