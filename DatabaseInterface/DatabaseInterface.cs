@@ -19,9 +19,9 @@ namespace DatabaseInterface
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            var form = new Create();
+            var createForm = new Create();
 
-            form.Show();
+            createForm.Show();
 
             Hide();
         }

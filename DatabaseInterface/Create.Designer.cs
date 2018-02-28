@@ -29,31 +29,127 @@
         private void InitializeComponent()
         {
             this.lblApiKey = new System.Windows.Forms.Label();
+            this.txtWorkingDir = new System.Windows.Forms.TextBox();
+            this.lblWorkingDir = new System.Windows.Forms.Label();
             this.txtApiKey = new System.Windows.Forms.TextBox();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.lblEmail = new System.Windows.Forms.Label();
+            this.txtEmailPassword = new System.Windows.Forms.TextBox();
+            this.lblEmailPassword = new System.Windows.Forms.Label();
+            this.btnAddEmails = new System.Windows.Forms.Button();
+            this.btnAddShows = new System.Windows.Forms.Button();
+            this.btnCreate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblApiKey
             // 
             this.lblApiKey.AutoSize = true;
-            this.lblApiKey.Location = new System.Drawing.Point(13, 13);
+            this.lblApiKey.Location = new System.Drawing.Point(12, 48);
             this.lblApiKey.Name = "lblApiKey";
             this.lblApiKey.Size = new System.Drawing.Size(45, 13);
             this.lblApiKey.TabIndex = 0;
             this.lblApiKey.Text = "API Key";
             // 
+            // txtWorkingDir
+            // 
+            this.txtWorkingDir.Location = new System.Drawing.Point(12, 25);
+            this.txtWorkingDir.Name = "txtWorkingDir";
+            this.txtWorkingDir.Size = new System.Drawing.Size(260, 20);
+            this.txtWorkingDir.TabIndex = 1;
+            // 
+            // lblWorkingDir
+            // 
+            this.lblWorkingDir.AutoSize = true;
+            this.lblWorkingDir.Location = new System.Drawing.Point(9, 9);
+            this.lblWorkingDir.Name = "lblWorkingDir";
+            this.lblWorkingDir.Size = new System.Drawing.Size(92, 13);
+            this.lblWorkingDir.TabIndex = 2;
+            this.lblWorkingDir.Text = "Working Directory";
+            // 
             // txtApiKey
             // 
-            this.txtApiKey.Location = new System.Drawing.Point(65, 10);
+            this.txtApiKey.Location = new System.Drawing.Point(12, 64);
             this.txtApiKey.Name = "txtApiKey";
-            this.txtApiKey.Size = new System.Drawing.Size(207, 20);
-            this.txtApiKey.TabIndex = 1;
+            this.txtApiKey.Size = new System.Drawing.Size(260, 20);
+            this.txtApiKey.TabIndex = 3;
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.Location = new System.Drawing.Point(12, 103);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(260, 20);
+            this.txtEmail.TabIndex = 5;
+            // 
+            // lblEmail
+            // 
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Location = new System.Drawing.Point(12, 87);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(73, 13);
+            this.lblEmail.TabIndex = 4;
+            this.lblEmail.Text = "Email Address";
+            // 
+            // txtEmailPassword
+            // 
+            this.txtEmailPassword.AcceptsTab = true;
+            this.txtEmailPassword.Location = new System.Drawing.Point(12, 142);
+            this.txtEmailPassword.Name = "txtEmailPassword";
+            this.txtEmailPassword.PasswordChar = '*';
+            this.txtEmailPassword.Size = new System.Drawing.Size(260, 20);
+            this.txtEmailPassword.TabIndex = 7;
+            // 
+            // lblEmailPassword
+            // 
+            this.lblEmailPassword.AutoSize = true;
+            this.lblEmailPassword.Location = new System.Drawing.Point(12, 126);
+            this.lblEmailPassword.Name = "lblEmailPassword";
+            this.lblEmailPassword.Size = new System.Drawing.Size(81, 13);
+            this.lblEmailPassword.TabIndex = 6;
+            this.lblEmailPassword.Text = "Email Password";
+            // 
+            // btnAddEmails
+            // 
+            this.btnAddEmails.Location = new System.Drawing.Point(12, 169);
+            this.btnAddEmails.Name = "btnAddEmails";
+            this.btnAddEmails.Size = new System.Drawing.Size(117, 23);
+            this.btnAddEmails.TabIndex = 8;
+            this.btnAddEmails.Text = "Add Emails";
+            this.btnAddEmails.UseVisualStyleBackColor = true;
+            // 
+            // btnAddShows
+            // 
+            this.btnAddShows.Location = new System.Drawing.Point(135, 169);
+            this.btnAddShows.Name = "btnAddShows";
+            this.btnAddShows.Size = new System.Drawing.Size(137, 23);
+            this.btnAddShows.TabIndex = 9;
+            this.btnAddShows.Text = "Add Shows";
+            this.btnAddShows.UseVisualStyleBackColor = true;
+            // 
+            // btnCreate
+            // 
+            this.btnCreate.Location = new System.Drawing.Point(12, 198);
+            this.btnCreate.Name = "btnCreate";
+            this.btnCreate.Size = new System.Drawing.Size(260, 23);
+            this.btnCreate.TabIndex = 10;
+            this.btnCreate.Text = "Create";
+            this.btnCreate.UseVisualStyleBackColor = true;
+            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
             // Create
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(284, 233);
+            this.Controls.Add(this.btnCreate);
+            this.Controls.Add(this.btnAddShows);
+            this.Controls.Add(this.btnAddEmails);
+            this.Controls.Add(this.txtEmailPassword);
+            this.Controls.Add(this.lblEmailPassword);
+            this.Controls.Add(this.txtEmail);
+            this.Controls.Add(this.lblEmail);
             this.Controls.Add(this.txtApiKey);
+            this.Controls.Add(this.lblWorkingDir);
+            this.Controls.Add(this.txtWorkingDir);
             this.Controls.Add(this.lblApiKey);
             this.Name = "Create";
             this.Text = "Create";
@@ -65,6 +161,15 @@
         #endregion
 
         private System.Windows.Forms.Label lblApiKey;
+        private System.Windows.Forms.TextBox txtWorkingDir;
+        private System.Windows.Forms.Label lblWorkingDir;
         private System.Windows.Forms.TextBox txtApiKey;
+        private System.Windows.Forms.TextBox txtEmail;
+        private System.Windows.Forms.Label lblEmail;
+        private System.Windows.Forms.TextBox txtEmailPassword;
+        private System.Windows.Forms.Label lblEmailPassword;
+        private System.Windows.Forms.Button btnAddEmails;
+        private System.Windows.Forms.Button btnAddShows;
+        private System.Windows.Forms.Button btnCreate;
     }
 }

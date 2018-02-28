@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\MessageHeading.cs" />
     <Compile Include="Create.cs">
       <SubType>Form</SubType>
     </Compile>
