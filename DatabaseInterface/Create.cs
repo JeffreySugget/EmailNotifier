@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DatabaseInterface.Classes;
 using System.IO;
 using System.Data.SQLite;
 using System.Configuration;
+using ApiLibrary.Interfaces;
+using ApiLibrary.Classes;
+using Newtonsoft.Json;
+using ApiLibrary.Models;
 
 namespace DatabaseInterface
 {
     public partial class Create : Form
     {
+        private readonly IDataHelper _dataHelper = new DataHelper();
+        private readonly IApiHelper _apiHelper = new ApiHelper(new DataHelper());
+
         public Create()
         {
             InitializeComponent();
@@ -71,6 +72,8 @@ namespace DatabaseInterface
                 MessageBox.Show(ex.Message, MessageHeading.Error);
                 return;
             }
+
+            AddShowData();
         }
 
         private void CreateTables()
@@ -114,7 +117,19 @@ namespace DatabaseInterface
 
         private void AddShowData()
         {
+            try
+            {
+                DatabaseHelper.CheckForDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, MessageHeading.Error);
+                return;
+            }
 
+            var json = _apiHelper.Get(_dataHelper.GetApiCall("api/series"));
+
+            var data = JsonConvert.DeserializeObject<List<SeriesRoot>>(json);
         }
     }
 }

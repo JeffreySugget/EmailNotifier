@@ -14,7 +14,7 @@ namespace ApiLibrary.Classes
             var apiCall = new StringBuilder();
             var sonarrInfo = new List<string>();
 
-            using (var sqlConn = new SQLiteConnection("Data Source=SonarrInfoDatabase;Version=3;"))
+            using (var sqlConn = new SQLiteConnection("Data Source=C:\\SonarrDatabase\\SonarrInfoDatabase;Version=3;"))
             {
                 sqlConn.Open();
 
@@ -47,7 +47,7 @@ namespace ApiLibrary.Classes
             var sql = "SELECT IpAddress FROM SonarrInfo";
             var baseUrl = string.Empty;
 
-            using (var sqlConn = new SQLiteConnection("Data Source=SonarrInfoDatabase;Version=3;"))
+            using (var sqlConn = new SQLiteConnection("Data Source=C:\\SonarrDatabase\\SonarrInfoDatabase;Version=3;"))
             {
                 sqlConn.Open();
 
@@ -71,7 +71,7 @@ namespace ApiLibrary.Classes
 
             var sql = "SELECT * FROM EmailInfo";
 
-            using (var sqlConn = new SQLiteConnection("Data Source=SonarrInfoDatabase;Version=3;"))
+            using (var sqlConn = new SQLiteConnection("Data Source=C:\\SonarrDatabase\\SonarrInfoDatabase;Version=3;"))
             {
                 sqlConn.Open();
 
