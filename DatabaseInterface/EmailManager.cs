@@ -13,12 +13,9 @@ namespace DatabaseInterface
 {
     public partial class EmailManager : Form
     {
-        private readonly string _workingDir;
-
-        public EmailManager(string workingDir)
+        public EmailManager()
         {
             InitializeComponent();
-            _workingDir = workingDir;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -31,7 +28,7 @@ namespace DatabaseInterface
 
             var sql = $"INSERT INTO EmailInfo (Address) VALUES ('{txtAddress.Text}')";
 
-            DatabaseHelper.ExecuteNonQuery(sql, _workingDir);
+            DatabaseHelper.ExecuteNonQuery(sql);
         }
     }
 }

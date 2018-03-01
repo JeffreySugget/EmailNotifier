@@ -33,14 +33,19 @@ namespace DatabaseInterface
                 return;
             }
 
-            SQLiteConnection.CreateFile($"{txtWorkingDir.Text}\\SonarrInfoDatabase");
+            if (!Directory.Exists("C:\\SonarrDatabase"))
+            {
+                Directory.CreateDirectory("C:\\SonarrDatabase");
+            }
+
+            SQLiteConnection.CreateFile(ConfigurationManager.AppSettings["SonarrDatabasePath"]);
             CreateTables();
             AddSonarrData();
         }
 
         private void btnAddEmails_Click(object sender, EventArgs e)
         {
-            var emailForm = new EmailManager(txtWorkingDir.Text);
+            var emailForm = new EmailManager();
 
             emailForm.Show();
         }
@@ -51,20 +56,11 @@ namespace DatabaseInterface
                         CREATE TABLE EmailInfo (Id INTEGER PRIMARY KEY AUTOINCREMENT, Address Text);
                         CREATE TABLE ShowInfo (Id INTEGER PRIMARY KEY AUTOINCREMENT, ShowName TEXT, EmailId INTEGER, FOREIGN KEY(EmailId) REFERENCES EmailInfo(Id));";
 
-            DatabaseHelper.ExecuteNonQuery(sql, txtWorkingDir.Text);
+            DatabaseHelper.ExecuteNonQuery(sql);
         }
 
         private void CheckTextBoxes()
         {
-            if (string.IsNullOrWhiteSpace(txtWorkingDir.Text))
-            {
-                throw new Exception("Please enter your working directory before continuing!");
-            }
-            else if (!Directory.Exists(txtWorkingDir.Text))
-            {
-                throw new Exception("Working directory not found!");
-            }
-
             if (string.IsNullOrWhiteSpace(txtApiKey.Text))
             {
                 throw new Exception("Please enter an API Key before continuing!");
@@ -90,7 +86,7 @@ namespace DatabaseInterface
         {
             var sql = $"INSERT INTO SonarrInfo (ApiKey, IpAddress, Email, Password) VALUES ('{txtApiKey.Text}', '{txtIpAddress.Text}', '{txtEmail.Text}', '{txtEmailPassword.Text}')";
 
-            DatabaseHelper.ExecuteNonQuery(sql, txtWorkingDir.Text);
+            DatabaseHelper.ExecuteNonQuery(sql);
         }
     }
 }
