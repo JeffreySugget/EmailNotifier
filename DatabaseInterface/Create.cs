@@ -73,7 +73,8 @@ namespace DatabaseInterface
                 return;
             }
 
-            AddShowData();
+            var showsForm = new Shows();
+            showsForm.Show();
         }
 
         private void CreateTables()
@@ -113,23 +114,6 @@ namespace DatabaseInterface
             var sql = $"INSERT INTO SonarrInfo (ApiKey, IpAddress, Email, Password) VALUES ('{txtApiKey.Text}', '{txtIpAddress.Text}', '{txtEmail.Text}', '{txtEmailPassword.Text}')";
 
             DatabaseHelper.ExecuteNonQuery(sql);
-        }
-
-        private void AddShowData()
-        {
-            try
-            {
-                DatabaseHelper.CheckForDatabase();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, MessageHeading.Error);
-                return;
-            }
-
-            var json = _apiHelper.Get(_dataHelper.GetApiCall("api/series"));
-
-            var data = JsonConvert.DeserializeObject<List<SeriesRoot>>(json);
         }
     }
 }
