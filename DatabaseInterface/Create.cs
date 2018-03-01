@@ -45,6 +45,12 @@ namespace DatabaseInterface
 
         private void btnAddEmails_Click(object sender, EventArgs e)
         {
+            if (!File.Exists(ConfigurationManager.AppSettings["SonarrDatabasePath"]))
+            {
+                MessageBox.Show("Please create a database before creating emails.", MessageHeading.Error);
+                return;
+            }
+
             var emailForm = new EmailManager();
 
             emailForm.Show();
