@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace DatabaseInterface.Classes
 {
@@ -20,6 +22,14 @@ namespace DatabaseInterface.Classes
                 {
                     sqlCmd.ExecuteNonQuery();
                 }
+            }
+        }
+
+        public static void CheckForDatabase()
+        {
+            if (!File.Exists(ConfigurationManager.AppSettings["SonarrDatabasePath"]))
+            {
+                throw new Exception("Please create a database before creating emails.");
             }
         }
     }

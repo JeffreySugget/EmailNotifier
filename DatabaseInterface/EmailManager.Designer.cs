@@ -32,6 +32,7 @@
             this.txtAddress = new System.Windows.Forms.TextBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.Delete = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblEmailAddress
@@ -69,11 +70,22 @@
             this.Delete.Text = "Delete";
             this.Delete.UseVisualStyleBackColor = true;
             // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(13, 95);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(259, 23);
+            this.btnClose.TabIndex = 4;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // EmailManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 99);
+            this.ClientSize = new System.Drawing.Size(284, 134);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.Delete);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtAddress);
@@ -91,5 +103,6 @@
         private System.Windows.Forms.TextBox txtAddress;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button Delete;
+        private System.Windows.Forms.Button btnClose;
     }
 }

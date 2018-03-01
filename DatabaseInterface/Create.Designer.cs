@@ -109,6 +109,7 @@
             this.btnAddShows.TabIndex = 10;
             this.btnAddShows.Text = "Add Shows";
             this.btnAddShows.UseVisualStyleBackColor = true;
+            this.btnAddShows.Click += new System.EventHandler(this.btnAddShows_Click);
             // 
             // btnCreate
             // 

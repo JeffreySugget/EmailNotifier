@@ -45,15 +45,32 @@ namespace DatabaseInterface
 
         private void btnAddEmails_Click(object sender, EventArgs e)
         {
-            if (!File.Exists(ConfigurationManager.AppSettings["SonarrDatabasePath"]))
+            try
             {
-                MessageBox.Show("Please create a database before creating emails.", MessageHeading.Error);
+                DatabaseHelper.CheckForDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, MessageHeading.Error);
                 return;
             }
 
             var emailForm = new EmailManager();
 
             emailForm.Show();
+        }
+
+        private void btnAddShows_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DatabaseHelper.CheckForDatabase();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, MessageHeading.Error);
+                return;
+            }
         }
 
         private void CreateTables()
@@ -93,6 +110,11 @@ namespace DatabaseInterface
             var sql = $"INSERT INTO SonarrInfo (ApiKey, IpAddress, Email, Password) VALUES ('{txtApiKey.Text}', '{txtIpAddress.Text}', '{txtEmail.Text}', '{txtEmailPassword.Text}')";
 
             DatabaseHelper.ExecuteNonQuery(sql);
+        }
+
+        private void AddShowData()
+        {
+
         }
     }
 }

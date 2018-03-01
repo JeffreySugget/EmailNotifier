@@ -30,5 +30,10 @@ namespace DatabaseInterface
 
             DatabaseHelper.ExecuteNonQuery(sql);
         }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }
