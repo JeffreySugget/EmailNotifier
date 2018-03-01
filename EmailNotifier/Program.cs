@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Unity;
+using ApiLibrary.Interfaces;
+using ApiLibrary.Classes;
 
 namespace EmailNotifier
 {

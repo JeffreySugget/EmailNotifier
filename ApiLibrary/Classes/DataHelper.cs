@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using EmailNotifier.Interfaces;
+using ApiLibrary.Interfaces;
 
-namespace EmailNotifier.Classes
+namespace ApiLibrary.Classes
 {
     public class DataHelper : IDataHelper
     {
@@ -81,7 +79,7 @@ namespace EmailNotifier.Classes
                 {
                     var dr = sqlCmd.ExecuteReader();
 
-                    while(dr.Read())
+                    while (dr.Read())
                     {
                         emailInfo.Add(dr["Address"].ToString(), int.Parse(dr["Id"].ToString()));
                     }

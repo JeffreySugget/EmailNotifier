@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using EmailNotifier.Interfaces;
+using ApiLibrary.Interfaces;
 using RestSharp;
 
-namespace EmailNotifier.Classes
+namespace ApiLibrary.Classes
 {
     public class ApiHelper : IApiHelper
     {
@@ -23,7 +19,7 @@ namespace EmailNotifier.Classes
             var client = new RestClient
             {
                 BaseUrl = new Uri(_dataHelper.GetBaseUrl())
-               // BaseUrl = new Uri("http://192.168.0.10:8989")
+                // BaseUrl = new Uri("http://192.168.0.10:8989")
             };
 
             //var request = new RestRequest("http://192.168.0.10:8989/api/history?apikey=4446dcfa0a2a487098c8bc65bba6027e&sortKey=date&sortDir=desc", Method.GET);

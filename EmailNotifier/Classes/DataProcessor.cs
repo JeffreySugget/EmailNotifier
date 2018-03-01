@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using EmailNotifier.Interfaces;
 using EmailNotifier.Models;
 using Newtonsoft.Json;
+using ApiLibrary.Classes;
+using ApiLibrary.Interfaces;
 
 namespace EmailNotifier.Classes
 {
