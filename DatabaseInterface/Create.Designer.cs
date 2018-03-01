@@ -39,6 +39,8 @@
             this.btnAddEmails = new System.Windows.Forms.Button();
             this.btnAddShows = new System.Windows.Forms.Button();
             this.btnCreate = new System.Windows.Forms.Button();
+            this.txtIpAddress = new System.Windows.Forms.TextBox();
+            this.lblIpaddress = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblApiKey
@@ -109,37 +111,56 @@
             // 
             // btnAddEmails
             // 
-            this.btnAddEmails.Location = new System.Drawing.Point(12, 169);
+            this.btnAddEmails.Location = new System.Drawing.Point(12, 207);
             this.btnAddEmails.Name = "btnAddEmails";
             this.btnAddEmails.Size = new System.Drawing.Size(117, 23);
-            this.btnAddEmails.TabIndex = 8;
+            this.btnAddEmails.TabIndex = 9;
             this.btnAddEmails.Text = "Add Emails";
             this.btnAddEmails.UseVisualStyleBackColor = true;
             // 
             // btnAddShows
             // 
-            this.btnAddShows.Location = new System.Drawing.Point(135, 169);
+            this.btnAddShows.Location = new System.Drawing.Point(135, 207);
             this.btnAddShows.Name = "btnAddShows";
             this.btnAddShows.Size = new System.Drawing.Size(137, 23);
-            this.btnAddShows.TabIndex = 9;
+            this.btnAddShows.TabIndex = 10;
             this.btnAddShows.Text = "Add Shows";
             this.btnAddShows.UseVisualStyleBackColor = true;
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(12, 198);
+            this.btnCreate.Location = new System.Drawing.Point(12, 236);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(260, 23);
-            this.btnCreate.TabIndex = 10;
+            this.btnCreate.TabIndex = 11;
             this.btnCreate.Text = "Create";
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
+            // 
+            // txtIpAddress
+            // 
+            this.txtIpAddress.AcceptsTab = true;
+            this.txtIpAddress.Location = new System.Drawing.Point(12, 181);
+            this.txtIpAddress.Name = "txtIpAddress";
+            this.txtIpAddress.Size = new System.Drawing.Size(260, 20);
+            this.txtIpAddress.TabIndex = 8;
+            // 
+            // lblIpaddress
+            // 
+            this.lblIpaddress.AutoSize = true;
+            this.lblIpaddress.Location = new System.Drawing.Point(9, 165);
+            this.lblIpaddress.Name = "lblIpaddress";
+            this.lblIpaddress.Size = new System.Drawing.Size(88, 13);
+            this.lblIpaddress.TabIndex = 11;
+            this.lblIpaddress.Text = "Sonarr IpAddress";
             // 
             // Create
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 233);
+            this.ClientSize = new System.Drawing.Size(284, 269);
+            this.Controls.Add(this.txtIpAddress);
+            this.Controls.Add(this.lblIpaddress);
             this.Controls.Add(this.btnCreate);
             this.Controls.Add(this.btnAddShows);
             this.Controls.Add(this.btnAddEmails);
@@ -171,5 +192,7 @@
         private System.Windows.Forms.Button btnAddEmails;
         private System.Windows.Forms.Button btnAddShows;
         private System.Windows.Forms.Button btnCreate;
+        private System.Windows.Forms.TextBox txtIpAddress;
+        private System.Windows.Forms.Label lblIpaddress;
     }
 }
