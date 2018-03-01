@@ -117,6 +117,7 @@
             this.btnAddEmails.TabIndex = 9;
             this.btnAddEmails.Text = "Add Emails";
             this.btnAddEmails.UseVisualStyleBackColor = true;
+            this.btnAddEmails.Click += new System.EventHandler(this.btnAddEmails_Click);
             // 
             // btnAddShows
             // 

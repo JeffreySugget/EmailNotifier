@@ -38,13 +38,20 @@ namespace DatabaseInterface
             AddSonarrData();
         }
 
+        private void btnAddEmails_Click(object sender, EventArgs e)
+        {
+            var emailForm = new EmailManager(txtWorkingDir.Text);
+
+            emailForm.Show();
+        }
+
         private void CreateTables()
         {
             var sql = @"CREATE TABLE SonarrInfo (Id INTEGER PRIMARY KEY AUTOINCREMENT, ApiKey TEXT, IpAddress TEXT, Email TEXT, Password TEXT);
                         CREATE TABLE EmailInfo (Id INTEGER PRIMARY KEY AUTOINCREMENT, Address Text);
                         CREATE TABLE ShowInfo (Id INTEGER PRIMARY KEY AUTOINCREMENT, ShowName TEXT, EmailId INTEGER, FOREIGN KEY(EmailId) REFERENCES EmailInfo(Id));";
 
-            ExecuteNonQuery(sql);
+            DatabaseHelper.ExecuteNonQuery(sql, txtWorkingDir.Text);
         }
 
         private void CheckTextBoxes()
@@ -83,20 +90,7 @@ namespace DatabaseInterface
         {
             var sql = $"INSERT INTO SonarrInfo (ApiKey, IpAddress, Email, Password) VALUES ('{txtApiKey.Text}', '{txtIpAddress.Text}', '{txtEmail.Text}', '{txtEmailPassword.Text}')";
 
-            ExecuteNonQuery(sql);
-        }
-
-        private void ExecuteNonQuery(string sql)
-        {
-            using (var sqlConn = new SQLiteConnection($"Data Source={txtWorkingDir.Text}\\SonarrInfoDatabase;Version=3;"))
-            {
-                sqlConn.Open();
-
-                using (var sqlCmd = new SQLiteCommand(sql, sqlConn))
-                {
-                    sqlCmd.ExecuteNonQuery();
-                }
-            }
+            DatabaseHelper.ExecuteNonQuery(sql, txtWorkingDir.Text);
         }
     }
 }

@@ -64,6 +64,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\DatabaseHelper.cs" />
+    <Compile Include="EmailManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmailManager.Designer.cs">
+      <DependentUpon>EmailManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\MessageHeading.cs" />
     <Compile Include="Create.cs">
       <SubType>Form</SubType>
@@ -79,6 +86,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="EmailManager.resx">
+      <DependentUpon>EmailManager.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Create.resx">
       <DependentUpon>Create.cs</DependentUpon>
     </EmbeddedResource>
