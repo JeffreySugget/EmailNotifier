@@ -23,7 +23,15 @@ namespace DatabaseInterface
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            CheckTextBoxes();
+            try
+            {
+                CheckTextBoxes();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, MessageHeading.Error);
+                return;
+            }
 
             SQLiteConnection.CreateFile($"{txtWorkingDir.Text}\\SonarrInfoDatabase");
             CreateTables();
@@ -43,37 +51,31 @@ namespace DatabaseInterface
         {
             if (string.IsNullOrWhiteSpace(txtWorkingDir.Text))
             {
-                MessageBox.Show("Please enter your working directory before continuing!", MessageHeading.Error);
-                return;
+                throw new Exception("Please enter your working directory before continuing!");
             }
             else if (!Directory.Exists(txtWorkingDir.Text))
             {
-                MessageBox.Show("Working directory not found!", MessageHeading.Error);
-                return;
+                throw new Exception("Working directory not found!");
             }
 
             if (string.IsNullOrWhiteSpace(txtApiKey.Text))
             {
-                MessageBox.Show("Please enter an API Key before continuing!", MessageHeading.Error);
-                return;
+                throw new Exception("Please enter an API Key before continuing!");
             }
 
             if (string.IsNullOrWhiteSpace(txtEmail.Text))
             {
-                MessageBox.Show("Please enter an Email before continuing!", MessageHeading.Error);
-                return;
+                throw new Exception("Please enter an Email before continuing!");
             }
 
             if (string.IsNullOrWhiteSpace(txtEmailPassword.Text))
             {
-                MessageBox.Show("Please enter an Email Password before continuing!", MessageHeading.Error);
-                return;
+                throw new Exception("Please enter an Email Password before continuing!");
             }
 
             if (string.IsNullOrWhiteSpace(txtIpAddress.Text))
             {
-                MessageBox.Show("Please enter your Sonarr ip address");
-                return;
+                throw new Exception("Please enter your Sonarr ip address before continuing!");
             }
         }
 
