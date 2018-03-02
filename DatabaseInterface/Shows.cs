@@ -59,8 +59,8 @@ namespace DatabaseInterface
 
                 for (var i = 0; i < dgShows.Rows.Count - 1; i++)
                 {
-                    dgShows.Rows[i].Cells[0].Value = shows[0].Name;
-                    dgShows.Rows[i].Cells[0].Value = shows[1].EmailAddress;
+                    dgShows.Rows[i].Cells[0].Value = shows[i].Name;
+                    dgShows.Rows[i].Cells[1].Value = shows[i].EmailAddress;
                 }
             }
         }
