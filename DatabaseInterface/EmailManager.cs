@@ -29,6 +29,10 @@ namespace DatabaseInterface
             var sql = $"INSERT INTO EmailInfo (Address) VALUES ('{txtAddress.Text}')";
 
             DatabaseHelper.ExecuteNonQuery(sql);
+
+            MessageBox.Show($"Successfully added email {txtAddress.Text}");
+
+            txtAddress.Clear();
         }
 
         private void btnClose_Click(object sender, EventArgs e)

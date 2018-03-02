@@ -20,12 +20,19 @@ namespace DatabaseInterface
         {
             InitializeComponent();
             CreateGridView();
+            FillDataView();
         }
 
         private void FillDataView()
         {
             var sql = "SELECT ShowName, Address FROM ShowInfo INNER JOIN EmailInfo on ShowInfo.EmailId = EmailInfo.Id";
             var shows = new List<Show>();
+
+            var col = new DataGridViewComboBoxColumn
+            {
+                HeaderText = "EmailAddress",
+                Name = "emailAddress"
+            };
 
             using (var sqlConn = new SQLiteConnection($"Data Source={ConfigurationManager.AppSettings["SonarrDatabasePath"]};Version=3;"))
             {
@@ -48,7 +55,13 @@ namespace DatabaseInterface
 
             if (shows.Count > 0)
             {
-                //fill data view
+                dgShows.Rows.Add(shows.Count);
+
+                for (var i = 0; i < dgShows.Rows.Count - 1; i++)
+                {
+                    dgShows.Rows[i].Cells[0].Value = shows[0].Name;
+                    dgShows.Rows[i].Cells[0].Value = shows[1].EmailAddress;
+                }
             }
         }
 
@@ -63,6 +76,8 @@ namespace DatabaseInterface
                 MessageBox.Show(ex.Message, MessageHeading.Error);
                 return;
             }
+
+            dgShows.Rows.Clear();
 
             var json = _apiHelper.Get(_dataHelper.GetApiCall("api/series"));
 
@@ -92,33 +107,58 @@ namespace DatabaseInterface
         private void btnSave_Click(object sender, EventArgs e)
         {
             var sql = "INSERT INTO ShowInfo (ShowName, EmailId) VALUES (@ShowName, (SELECT Id FROM EmailInfo WHERE Address = @Address))";
+            var shows = new List<Show>();
+            var count = 0;
 
             foreach (DataGridViewRow r in dgShows.Rows)
             {
-                if (r.Cells[1].Value == null)
+                if (count == dgShows.RowCount - 1) continue;
+
+                if (r.Cells[2].Value == null)
                 {
-                    MessageBox.Show("Not all shows have emails selected.", MessageHeading.Error);
+                    MessageBox.Show("Not all shows have emails.", MessageHeading.Error);
                     return;
                 }
 
-                using (var sqlConn = new SQLiteConnection($"Data Source={ConfigurationManager.AppSettings["SonarrDatabasePath"]};Version=3;"))
+                shows.Add(new Show
                 {
-                    sqlConn.Open();
+                    Name = r.Cells[0].Value.ToString(),
+                    EmailAddress = r.Cells[2].Value.ToString()
+                });
 
-                    using (var sqlCmd = new SQLiteCommand(sql, sqlConn))
+                count++;
+            }
+
+            foreach (var s in shows)
+            {
+                try
+                {
+                    using (var sqlConn = new SQLiteConnection($"Data Source={ConfigurationManager.AppSettings["SonarrDatabasePath"]};Version=3;"))
                     {
-                        sqlCmd.Parameters.AddWithValue("@ShowName", r.Cells[0].Value);
-                        sqlCmd.Parameters.AddWithValue("@Address", r.Cells[1].Value);
+                        sqlConn.Open();
 
-                        sqlCmd.ExecuteNonQuery();
+                        using (var sqlCmd = new SQLiteCommand(sql, sqlConn))
+                        {
+                            sqlCmd.Parameters.AddWithValue("@ShowName", s.Name);
+                            sqlCmd.Parameters.AddWithValue("@Address", s.EmailAddress);
+
+                            sqlCmd.ExecuteNonQuery();
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error adding shows: {ex.Message}");
+                }
             }
+
+            MessageBox.Show("Successfully added shows.", MessageHeading.Success);
         }
 
         private void CreateGridView()
         {
             dgShows.Columns.Add("showTitle", "ShowTitle");
+            dgShows.Columns.Add("emailAddress", "Email");
         }
 
         private IEnumerable<string> GetEmails()
