@@ -95,6 +95,12 @@ namespace DatabaseInterface
 
             foreach (DataGridViewRow r in dgShows.Rows)
             {
+                if (r.Cells[1].Value == null)
+                {
+                    MessageBox.Show("Not all shows have emails selected.", MessageHeading.Error);
+                    return;
+                }
+
                 using (var sqlConn = new SQLiteConnection($"Data Source={ConfigurationManager.AppSettings["SonarrDatabasePath"]};Version=3;"))
                 {
                     sqlConn.Open();
