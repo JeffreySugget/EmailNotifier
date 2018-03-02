@@ -62,11 +62,15 @@ namespace DatabaseInterface
                     dgShows.Rows[i].Cells[0].Value = shows[i].Name;
                     dgShows.Rows[i].Cells[1].Value = shows[i].EmailAddress;
                 }
+
+                dgShows.ReadOnly = true;
             }
         }
 
         private void btnRefreshShows_Click(object sender, EventArgs e)
         {
+            dgShows.ReadOnly = false;
+
             try
             {
                 DatabaseHelper.CheckForDatabase();
