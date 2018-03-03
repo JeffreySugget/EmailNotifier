@@ -25,12 +25,14 @@ namespace DatabaseInterface.Classes
             }
         }
 
-        public static void CheckForDatabase()
+        public static bool CheckForDatabase()
         {
             if (!File.Exists(ConfigurationManager.AppSettings["SonarrDatabasePath"]))
             {
-                throw new Exception("Please create a database before creating emails.");
+                return false;
             }
+
+            return true;
         }
     }
 }

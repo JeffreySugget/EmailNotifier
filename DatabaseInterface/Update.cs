@@ -48,5 +48,17 @@ namespace DatabaseInterface
         {
             txtEmailPassword.PasswordChar = chkShowPassword.Checked ? '\0' : '*';
         }
+
+        private void btnUpdateEmails_Click(object sender, EventArgs e)
+        {
+            var form = new EmailManager();
+            form.Show();
+        }
+
+        private void btnUpdateShows_Click(object sender, EventArgs e)
+        {
+            var form = new Shows();
+            form.Show();
+        }
     }
 }

@@ -76,6 +76,7 @@
             this.btnUpdateShows.TabIndex = 20;
             this.btnUpdateShows.Text = "Update Shows";
             this.btnUpdateShows.UseVisualStyleBackColor = true;
+            this.btnUpdateShows.Click += new System.EventHandler(this.btnUpdateShows_Click);
             // 
             // btnUpdateEmails
             // 
@@ -85,6 +86,7 @@
             this.btnUpdateEmails.TabIndex = 19;
             this.btnUpdateEmails.Text = "Update Emails";
             this.btnUpdateEmails.UseVisualStyleBackColor = true;
+            this.btnUpdateEmails.Click += new System.EventHandler(this.btnUpdateEmails_Click);
             // 
             // txtEmailPassword
             // 
