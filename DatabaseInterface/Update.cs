@@ -60,5 +60,18 @@ namespace DatabaseInterface
             var form = new Shows();
             form.Show();
         }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            var deleteSql = "DELETE FROM SonarrInfo";
+
+            DatabaseHelper.ExecuteNonQuery(deleteSql);
+
+            var insert = $"INSERT INTO SonarrInfo (ApiKey, Email, IpAddress, Password) VALUES ('{txtApiKey.Text}', '{txtEmail.Text}', '{txtIpAddress.Text}', '{txtEmailPassword.Text}')";
+
+            DatabaseHelper.ExecuteNonQuery(insert);
+
+            MessageBox.Show("Successfully updated database.", MessageHeading.Success);
+        }
     }
 }
