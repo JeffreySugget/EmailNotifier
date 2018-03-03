@@ -37,6 +37,7 @@ namespace DatabaseInterface
 
         private void Delete_Click(object sender, EventArgs e)
         {
+            //TODO: Add these to list ?
             var selectIdSql = $"SELECT EmailId FROM ShowInfo WHERE EmailId = (SELECT Id FROM EmailInfo WHERE Address = '{txtAddress.Text}')";
             var emailCheckSql = $"SELECT Address FROM EmailInfo WHERE Address = '{txtAddress.Text}'";
             Object emailId = null;
