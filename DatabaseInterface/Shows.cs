@@ -163,6 +163,21 @@ namespace DatabaseInterface
             dgShows.Rows.Clear();
 
             var shows = GetShowInfo();
+            var json = _apiHelper.Get(_dataHelper.GetApiCall("api/series"));
+            var sonarrShows = JsonConvert.DeserializeObject<List<SeriesRoot>>(json);
+            var showTitles = shows.Select(x => x.Name).ToList();
+            var sonarrTitles = sonarrShows.Select(x => x.Title).ToList();
+            var showsToAdd = sonarrTitles.Except(showTitles).ToList();
+            var showsToRemove = showTitles.Except(sonarrTitles).ToList();
+
+            foreach (var s in showsToRemove)
+            {
+                var deleteSql = $"DELETE FROM ShowInfo WHERE ShowName = '{s}'";
+
+                DatabaseHelper.ExecuteNonQuery(deleteSql);
+            }
+
+            shows = GetShowInfo();
 
             if (shows.Count == 0)
             {
@@ -170,13 +185,6 @@ namespace DatabaseInterface
             }
             else
             {
-                var json = _apiHelper.Get(_dataHelper.GetApiCall("api/series"));
-
-                var sonarrShows = JsonConvert.DeserializeObject<List<SeriesRoot>>(json);
-                var showTitles = shows.Select(x => x.Name).ToList();
-                var sonarrTitles = sonarrShows.Select(x => x.Title).ToList();
-                var showsToAdd = sonarrTitles.Except(showTitles).ToList();
-
                 sonarrShows = sonarrShows.Where(x => showsToAdd.Contains(x.Title)).ToList();
 
                 foreach (var ss in sonarrShows)
