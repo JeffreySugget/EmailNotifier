@@ -39,6 +39,7 @@
             this.lblEmail = new System.Windows.Forms.Label();
             this.txtApiKey = new System.Windows.Forms.TextBox();
             this.lblApiKey = new System.Windows.Forms.Label();
+            this.chkShowPassword = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // txtIpAddress
@@ -135,11 +136,23 @@
             this.lblApiKey.TabIndex = 12;
             this.lblApiKey.Text = "API Key";
             // 
+            // chkShowPassword
+            // 
+            this.chkShowPassword.AutoSize = true;
+            this.chkShowPassword.Location = new System.Drawing.Point(99, 84);
+            this.chkShowPassword.Name = "chkShowPassword";
+            this.chkShowPassword.Size = new System.Drawing.Size(102, 17);
+            this.chkShowPassword.TabIndex = 23;
+            this.chkShowPassword.Text = "Show Password";
+            this.chkShowPassword.UseVisualStyleBackColor = true;
+            this.chkShowPassword.CheckedChanged += new System.EventHandler(this.chkShowPassword_CheckedChanged);
+            // 
             // Update
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 228);
+            this.ClientSize = new System.Drawing.Size(281, 228);
+            this.Controls.Add(this.chkShowPassword);
             this.Controls.Add(this.txtIpAddress);
             this.Controls.Add(this.lblIpaddress);
             this.Controls.Add(this.btnUpdate);
@@ -171,5 +184,6 @@
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.TextBox txtApiKey;
         private System.Windows.Forms.Label lblApiKey;
+        private System.Windows.Forms.CheckBox chkShowPassword;
     }
 }
