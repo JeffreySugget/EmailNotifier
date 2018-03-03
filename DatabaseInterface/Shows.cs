@@ -50,6 +50,7 @@ namespace DatabaseInterface
 
         private void btnRefreshShows_Click(object sender, EventArgs e)
         {
+            btnRefreshShows.Enabled = false;
             dgShows.ReadOnly = false;
 
             if (DatabaseHelper.CheckForDatabase())
@@ -117,6 +118,8 @@ namespace DatabaseInterface
             MessageBox.Show("Successfully added shows.", MessageHeading.Success);
 
             FillDataView();
+
+            btnRefreshShows.Enabled = true;
         }
 
         private void CreateGridView()
