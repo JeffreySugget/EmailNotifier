@@ -34,8 +34,6 @@
             this.lblEmail = new System.Windows.Forms.Label();
             this.txtEmailPassword = new System.Windows.Forms.TextBox();
             this.lblEmailPassword = new System.Windows.Forms.Label();
-            this.btnAddEmails = new System.Windows.Forms.Button();
-            this.btnAddShows = new System.Windows.Forms.Button();
             this.btnCreate = new System.Windows.Forms.Button();
             this.txtIpAddress = new System.Windows.Forms.TextBox();
             this.lblIpaddress = new System.Windows.Forms.Label();
@@ -91,29 +89,9 @@
             this.lblEmailPassword.TabIndex = 6;
             this.lblEmailPassword.Text = "Email Password";
             // 
-            // btnAddEmails
-            // 
-            this.btnAddEmails.Location = new System.Drawing.Point(12, 169);
-            this.btnAddEmails.Name = "btnAddEmails";
-            this.btnAddEmails.Size = new System.Drawing.Size(117, 23);
-            this.btnAddEmails.TabIndex = 9;
-            this.btnAddEmails.Text = "Add Emails";
-            this.btnAddEmails.UseVisualStyleBackColor = true;
-            this.btnAddEmails.Click += new System.EventHandler(this.btnAddEmails_Click);
-            // 
-            // btnAddShows
-            // 
-            this.btnAddShows.Location = new System.Drawing.Point(135, 169);
-            this.btnAddShows.Name = "btnAddShows";
-            this.btnAddShows.Size = new System.Drawing.Size(137, 23);
-            this.btnAddShows.TabIndex = 10;
-            this.btnAddShows.Text = "Add Shows";
-            this.btnAddShows.UseVisualStyleBackColor = true;
-            this.btnAddShows.Click += new System.EventHandler(this.btnAddShows_Click);
-            // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(12, 198);
+            this.btnCreate.Location = new System.Drawing.Point(12, 169);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(260, 23);
             this.btnCreate.TabIndex = 11;
@@ -142,12 +120,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 233);
+            this.ClientSize = new System.Drawing.Size(284, 202);
             this.Controls.Add(this.txtIpAddress);
             this.Controls.Add(this.lblIpaddress);
             this.Controls.Add(this.btnCreate);
-            this.Controls.Add(this.btnAddShows);
-            this.Controls.Add(this.btnAddEmails);
             this.Controls.Add(this.txtEmailPassword);
             this.Controls.Add(this.lblEmailPassword);
             this.Controls.Add(this.txtEmail);
@@ -169,8 +145,6 @@
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.TextBox txtEmailPassword;
         private System.Windows.Forms.Label lblEmailPassword;
-        private System.Windows.Forms.Button btnAddEmails;
-        private System.Windows.Forms.Button btnAddShows;
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.TextBox txtIpAddress;
         private System.Windows.Forms.Label lblIpaddress;

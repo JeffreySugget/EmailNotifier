@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SQLite;
 using System.Text;
 using ApiLibrary.Interfaces;
@@ -65,13 +66,36 @@ namespace ApiLibrary.Classes
             return baseUrl;
         }
 
-        public Dictionary<string, int> GetEmails()
+        //public Dictionary<string, int> GetEmails()
+        //{
+        //    var emailInfo = new Dictionary<string, int>();
+
+        //    var sql = "SELECT * FROM EmailInfo";
+
+        //    using (var sqlConn = new SQLiteConnection("Data Source=C:\\SonarrDatabase\\SonarrInfoDatabase;Version=3;"))
+        //    {
+        //        sqlConn.Open();
+
+        //        using (var sqlCmd = new SQLiteCommand(sql, sqlConn))
+        //        {
+        //            var dr = sqlCmd.ExecuteReader();
+
+        //            while (dr.Read())
+        //            {
+        //                emailInfo.Add(dr["Address"].ToString(), int.Parse(dr["Id"].ToString()));
+        //            }
+        //        }
+        //    }
+
+        //    return emailInfo;
+        //}
+
+        public IEnumerable<string> GetEmails()
         {
-            var emailInfo = new Dictionary<string, int>();
+            var sql = "SELECT Address FROM EmailInfo";
+            var emails = new List<string>();
 
-            var sql = "SELECT * FROM EmailInfo";
-
-            using (var sqlConn = new SQLiteConnection("Data Source=C:\\SonarrDatabase\\SonarrInfoDatabase;Version=3;"))
+            using (var sqlConn = new SQLiteConnection($"Data Source={ConfigurationManager.AppSettings["SonarrDatabasePath"]};Version=3;"))
             {
                 sqlConn.Open();
 
@@ -81,12 +105,12 @@ namespace ApiLibrary.Classes
 
                     while (dr.Read())
                     {
-                        emailInfo.Add(dr["Address"].ToString(), int.Parse(dr["Id"].ToString()));
+                        emails.Add(dr["Address"].ToString());
                     }
                 }
             }
 
-            return emailInfo;
+            return emails;
         }
     }
 }

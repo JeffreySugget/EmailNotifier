@@ -2,15 +2,21 @@
 using System.Configuration;
 using System.Data.SQLite;
 using System.Windows.Forms;
+using ApiLibrary.Classes;
+using ApiLibrary.Interfaces;
 using DatabaseInterface.Classes;
 
 namespace DatabaseInterface
 {
     public partial class EmailManager : Form
     {
+        private readonly IDataHelper _dataHelper = new DataHelper();
+
         public EmailManager()
         {
             InitializeComponent();
+            cmbEmails.Text = "--Select Email--";
+            AddEmails();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -27,6 +33,8 @@ namespace DatabaseInterface
 
             MessageBox.Show($"Successfully added email {txtAddress.Text}");
 
+            cmbEmails.Items.Add(txtAddress.Text);
+
             txtAddress.Clear();
         }
 
@@ -38,10 +46,9 @@ namespace DatabaseInterface
         private void Delete_Click(object sender, EventArgs e)
         {
             //TODO: Add these to list ?
-            var selectIdSql = $"SELECT EmailId FROM ShowInfo WHERE EmailId = (SELECT Id FROM EmailInfo WHERE Address = '{txtAddress.Text}')";
-            var emailCheckSql = $"SELECT Address FROM EmailInfo WHERE Address = '{txtAddress.Text}'";
+            var selectIdSql = $"SELECT EmailId FROM ShowInfo WHERE EmailId = (SELECT Id FROM EmailInfo WHERE Address = '{cmbEmails.SelectedItem}')";
+            var emailCheckSql = $"SELECT Address FROM EmailInfo WHERE Address = '{cmbEmails.SelectedItem}'";
             Object emailId = null;
-            Object email = null;
 
             using (var sqlConn = new SQLiteConnection($"Data Source={ConfigurationManager.AppSettings["SonarrDatabasePath"]};Version=3;"))
             {
@@ -56,16 +63,6 @@ namespace DatabaseInterface
                         emailId = dr["EmailId"];
                     }
                 }
-
-                using (var sqlCmd = new SQLiteCommand(emailCheckSql, sqlConn))
-                {
-                    var dr = sqlCmd.ExecuteReader();
-
-                    while (dr.Read())
-                    {
-                        email = dr["Address"];
-                    }
-                }
             }
 
             if (emailId != null)
@@ -74,19 +71,32 @@ namespace DatabaseInterface
             }
             else
             {
-                if (email != null)
-                {
-                    var deleteSql = $"DELETE FROM EmailInfo WHERE Address = '{txtAddress.Text}'";
+                var deleteSql = $"DELETE FROM EmailInfo WHERE Address = '{cmbEmails.SelectedItem}'";
 
-                    DatabaseHelper.ExecuteNonQuery(deleteSql);
+                DatabaseHelper.ExecuteNonQuery(deleteSql);
 
-                    MessageBox.Show($"Successfully deleted email {txtAddress.Text}");
-                }
-                else
-                {
-                    MessageBox.Show("Email doesn't exist", MessageHeading.Error);
-                }
+                cmbEmails.Items.Remove(cmbEmails.SelectedItem);
+
+                MessageBox.Show($"Successfully deleted email {cmbEmails.SelectedItem}");
             }
+        }
+
+        private void AddEmails()
+        {
+            foreach (var email in _dataHelper.GetEmails())
+            {
+                cmbEmails.Items.Add(email);
+            }
+        }
+
+        private void cmbEmails_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Delete.Enabled = true;
+        }
+
+        private void txtAddress_TextChanged(object sender, EventArgs e)
+        {
+            btnAdd.Enabled = true;
         }
     }
 }

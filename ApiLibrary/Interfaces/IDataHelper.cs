@@ -10,6 +10,6 @@ namespace ApiLibrary.Interfaces
 
         string GetBaseUrl();
 
-        Dictionary<string, int> GetEmails();
+        IEnumerable<string> GetEmails();
     }
 }

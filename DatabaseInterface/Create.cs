@@ -50,41 +50,6 @@ namespace DatabaseInterface
             Close();
         }
 
-        private void btnAddEmails_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                DatabaseHelper.CheckForDatabase();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, MessageHeading.Error);
-                return;
-            }
-
-            var emailForm = new EmailManager();
-
-            emailForm.Controls["Delete"].Enabled = false;
-
-            emailForm.Show();
-        }
-
-        private void btnAddShows_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                DatabaseHelper.CheckForDatabase();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, MessageHeading.Error);
-                return;
-            }
-
-            var showsForm = new Shows();
-            showsForm.Show();
-        }
-
         private void CreateTables()
         {
             var sql = @"CREATE TABLE SonarrInfo (Id INTEGER PRIMARY KEY AUTOINCREMENT, ApiKey TEXT, IpAddress TEXT, Email TEXT, Password TEXT);

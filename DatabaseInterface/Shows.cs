@@ -129,29 +129,6 @@ namespace DatabaseInterface
             dgShows.Columns.Add("emailAddress", "Email");
         }
 
-        private IEnumerable<string> GetEmails()
-        {
-            var sql = "SELECT Address FROM EmailInfo";
-            var emails = new List<string>();
-
-            using (var sqlConn = new SQLiteConnection($"Data Source={ConfigurationManager.AppSettings["SonarrDatabasePath"]};Version=3;"))
-            {
-                sqlConn.Open();
-
-                using (var sqlCmd = new SQLiteCommand(sql, sqlConn))
-                {
-                    var dr = sqlCmd.ExecuteReader();
-
-                    while (dr.Read())
-                    {
-                        emails.Add(dr["Address"].ToString());
-                    }
-                }
-            }
-
-            return emails;
-        }
-
         private void UpdateShowsForEmptyDatabase()
         {
             dgShows.Rows.Clear();
@@ -166,7 +143,7 @@ namespace DatabaseInterface
                 Name = "emailAddressDropDown"
             };
 
-            foreach (var email in GetEmails())
+            foreach (var email in _dataHelper.GetEmails())
             {
                 col.Items.Add(email);
             }
@@ -217,7 +194,7 @@ namespace DatabaseInterface
                     Name = "emailAddressDropDown"
                 };
 
-                foreach (var email in GetEmails())
+                foreach (var email in _dataHelper.GetEmails())
                 {
                     col.Items.Add(email);
                 }

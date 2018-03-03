@@ -13,4 +13,10 @@
     <PackageReference Include="System.Data.SQLite.Linq" Version="1.0.107" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Configuration">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Configuration.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

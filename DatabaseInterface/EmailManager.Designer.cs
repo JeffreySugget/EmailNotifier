@@ -33,6 +33,8 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.Delete = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.cmbEmails = new System.Windows.Forms.ComboBox();
+            this.lblExistingEmails = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblEmailAddress
@@ -50,10 +52,12 @@
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(259, 20);
             this.txtAddress.TabIndex = 1;
+            this.txtAddress.TextChanged += new System.EventHandler(this.txtAddress_TextChanged);
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(13, 66);
+            this.btnAdd.Enabled = false;
+            this.btnAdd.Location = new System.Drawing.Point(11, 99);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(123, 23);
             this.btnAdd.TabIndex = 2;
@@ -63,7 +67,8 @@
             // 
             // Delete
             // 
-            this.Delete.Location = new System.Drawing.Point(142, 66);
+            this.Delete.Enabled = false;
+            this.Delete.Location = new System.Drawing.Point(140, 99);
             this.Delete.Name = "Delete";
             this.Delete.Size = new System.Drawing.Size(130, 23);
             this.Delete.TabIndex = 3;
@@ -73,7 +78,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(13, 95);
+            this.btnClose.Location = new System.Drawing.Point(11, 128);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(259, 23);
             this.btnClose.TabIndex = 4;
@@ -81,11 +86,31 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // cmbEmails
+            // 
+            this.cmbEmails.FormattingEnabled = true;
+            this.cmbEmails.Location = new System.Drawing.Point(11, 69);
+            this.cmbEmails.Name = "cmbEmails";
+            this.cmbEmails.Size = new System.Drawing.Size(260, 21);
+            this.cmbEmails.TabIndex = 5;
+            this.cmbEmails.SelectedIndexChanged += new System.EventHandler(this.cmbEmails_SelectedIndexChanged);
+            // 
+            // lblExistingEmails
+            // 
+            this.lblExistingEmails.AutoSize = true;
+            this.lblExistingEmails.Location = new System.Drawing.Point(92, 53);
+            this.lblExistingEmails.Name = "lblExistingEmails";
+            this.lblExistingEmails.Size = new System.Drawing.Size(76, 13);
+            this.lblExistingEmails.TabIndex = 6;
+            this.lblExistingEmails.Text = "Existing Emails";
+            // 
             // EmailManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 134);
+            this.ClientSize = new System.Drawing.Size(284, 161);
+            this.Controls.Add(this.lblExistingEmails);
+            this.Controls.Add(this.cmbEmails);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.Delete);
             this.Controls.Add(this.btnAdd);
@@ -105,5 +130,7 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button Delete;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.ComboBox cmbEmails;
+        private System.Windows.Forms.Label lblExistingEmails;
     }
 }
