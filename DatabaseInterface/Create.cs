@@ -42,6 +42,12 @@ namespace DatabaseInterface
             SQLiteConnection.CreateFile(ConfigurationManager.AppSettings["SonarrDatabasePath"]);
             CreateTables();
             AddSonarrData();
+
+            MessageBox.Show("Successfully created database.", MessageHeading.Success);
+
+            var mainForm = new DatabaseInterface();
+            mainForm.Show();
+            Close();
         }
 
         private void btnAddEmails_Click(object sender, EventArgs e)

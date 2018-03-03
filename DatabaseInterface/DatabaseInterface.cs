@@ -27,5 +27,20 @@ namespace DatabaseInterface
 
             Hide();
         }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (!File.Exists(ConfigurationManager.AppSettings["SonarrDatabasePath"]))
+            {
+                MessageBox.Show("Please create database first", MessageHeading.Error);
+                return;
+            }
+
+            var updateForm = new Update();
+
+            updateForm.Show();
+
+            Hide();
+        }
     }
 }
