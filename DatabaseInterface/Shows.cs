@@ -66,10 +66,6 @@ namespace DatabaseInterface
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var deleteSql = "DELETE FROM ShowInfo";
-
-            DatabaseHelper.ExecuteNonQuery(deleteSql);
-
             var sql = "INSERT INTO ShowInfo (ShowName, EmailId) VALUES (@ShowName, (SELECT Id FROM EmailInfo WHERE Address = @Address))";
             var shows = new List<Show>();
             var count = 0;
@@ -92,6 +88,10 @@ namespace DatabaseInterface
 
                 count++;
             }
+
+            var deleteSql = "DELETE FROM ShowInfo";
+
+            DatabaseHelper.ExecuteNonQuery(deleteSql);
 
             foreach (var s in shows)
             {
