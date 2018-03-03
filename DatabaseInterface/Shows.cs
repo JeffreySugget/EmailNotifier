@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using System.Configuration;
+using System.Linq;
 
 namespace DatabaseInterface
 {
@@ -192,6 +193,24 @@ namespace DatabaseInterface
             }
             else
             {
+                var json = _apiHelper.Get(_dataHelper.GetApiCall("api/series"));
+
+                var sonarrShows = JsonConvert.DeserializeObject<List<SeriesRoot>>(json);
+                var showTitles = shows.Select(x => x.Name).ToList();
+                var sonarrTitles = sonarrShows.Select(x => x.Title).ToList();
+                var showsToAdd = sonarrTitles.Except(showTitles).ToList();
+
+                sonarrShows = sonarrShows.Where(x => showsToAdd.Contains(x.Title)).ToList();
+
+                foreach (var ss in sonarrShows)
+                {
+                    shows.Add(new Show
+                    {
+                        Name = ss.Title,
+                        EmailAddress = null
+                    });
+                }
+
                 var col = new DataGridViewComboBoxColumn
                 {
                     HeaderText = "EmailAddress",
