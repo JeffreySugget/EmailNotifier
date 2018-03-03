@@ -58,6 +58,8 @@ namespace DatabaseInterface
 
             var emailForm = new EmailManager();
 
+            emailForm.Controls["Delete"].Enabled = false;
+
             emailForm.Show();
         }
 
