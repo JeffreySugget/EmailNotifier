@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EmailNotifier.Interfaces;
-using System.Configuration;
+﻿using System.Configuration;
+using ApiLibrary.Interfaces;
 
-namespace EmailNotifier.Classes
+namespace ApiLibrary.Classes
 {
     public class ConfigurationHelper : IConfigurationHelper
     {
@@ -15,5 +10,7 @@ namespace EmailNotifier.Classes
         public string FromAddress => ConfigurationManager.AppSettings["FromAddress"];
 
         public string KaylaShows => ConfigurationManager.AppSettings["KaylaShows"];
+
+        public string ConnectionString => ConfigurationManager.ConnectionStrings["SonarrConnString"].ConnectionString;
     }
 }

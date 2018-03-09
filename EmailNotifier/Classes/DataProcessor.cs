@@ -14,9 +14,9 @@ namespace EmailNotifier.Classes
     public class DataProcessor : IDataProcessor
     {
         private readonly IApiHelper _apiHelper;
-        private readonly IConfigurationHelper _configurationHelper;
         private readonly IEmailHelper _emailHelper;
         private readonly IDataHelper _dataHelper;
+        private readonly IConfigurationHelper _configurationHelper;
 
         public DataProcessor(IApiHelper apiHelper, IConfigurationHelper configurationHelper, IEmailHelper emailHelper, IDataHelper dataHelper)
         {
@@ -66,18 +66,15 @@ namespace EmailNotifier.Classes
 
             foreach (var e in grabbed)
             {
-                if (e.EventType == "grabbed")
+                if (kaylaShows.Contains(e.Series.Title, StringComparer.InvariantCultureIgnoreCase))
                 {
-                    if (kaylaShows.Contains(e.Series.Title, StringComparer.InvariantCultureIgnoreCase))
+                    foreach (var s in kaylaShows)
                     {
-                        foreach (var s in kaylaShows)
+                        if (e.Series.Title.ToLower() == s.ToLower())
                         {
-                            if (e.Series.Title.ToLower() == s.ToLower())
+                            if (DateTime.Parse(e.Date) >= DateTime.Now.AddHours(-1))
                             {
-                                if (DateTime.Parse(e.Date) >= DateTime.Now.AddHours(-1))
-                                {
-                                    CreateShowList(e, subjectLines);
-                                }
+                                CreateShowList(e, subjectLines);
                             }
                         }
                     }

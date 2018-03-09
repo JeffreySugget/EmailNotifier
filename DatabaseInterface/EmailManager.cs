@@ -10,7 +10,8 @@ namespace DatabaseInterface
 {
     public partial class EmailManager : Form
     {
-        private readonly IDataHelper _dataHelper = new DataHelper();
+        private static readonly IConfigurationHelper _configurationHelper = new ConfigurationHelper();
+        private readonly IDataHelper _dataHelper = new DataHelper(_configurationHelper);
 
         public EmailManager()
         {
@@ -50,7 +51,7 @@ namespace DatabaseInterface
             var emailCheckSql = $"SELECT Address FROM EmailInfo WHERE Address = '{cmbEmails.SelectedItem}'";
             Object emailId = null;
 
-            using (var sqlConn = new SQLiteConnection($"Data Source={ConfigurationManager.AppSettings["SonarrDatabasePath"]};Version=3;"))
+            using (var sqlConn = new SQLiteConnection(_configurationHelper.ConnectionString))
             {
                 sqlConn.Open();
 

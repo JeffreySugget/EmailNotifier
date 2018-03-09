@@ -7,14 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ApiLibrary.Interfaces;
+using ApiLibrary.Classes;
 
 namespace DatabaseInterface.Classes
 {
     public static class DatabaseHelper
     {
+        private static readonly IConfigurationHelper _configurationHelper = new ConfigurationHelper();
+
         public static void ExecuteNonQuery(string sql)
         {
-            using (var sqlConn = new SQLiteConnection($"Data Source={ConfigurationManager.AppSettings["SonarrDatabasePath"]};Version=3;"))
+            using (var sqlConn = new SQLiteConnection(_configurationHelper.ConnectionString))
             {
                 sqlConn.Open();
 

@@ -14,8 +14,9 @@ namespace DatabaseInterface
 {
     public partial class Shows : Form
     {
-        private readonly IDataHelper _dataHelper = new DataHelper();
-        private readonly IApiHelper _apiHelper = new ApiHelper(new DataHelper());
+        private static readonly IConfigurationHelper _configurationHelper = new ConfigurationHelper();
+        private readonly IDataHelper _dataHelper = new DataHelper(_configurationHelper);
+        private readonly IApiHelper _apiHelper = new ApiHelper(new DataHelper(_configurationHelper));
 
         public Shows()
         {
@@ -97,7 +98,7 @@ namespace DatabaseInterface
             {
                 try
                 {
-                    using (var sqlConn = new SQLiteConnection($"Data Source={ConfigurationManager.AppSettings["SonarrDatabasePath"]};Version=3;"))
+                    using (var sqlConn = new SQLiteConnection(_configurationHelper.ConnectionString))
                     {
                         sqlConn.Open();
 
@@ -231,7 +232,7 @@ namespace DatabaseInterface
         {
             var showSql = "SELECT ShowName, Address FROM ShowInfo INNER JOIN EmailInfo on ShowInfo.EmailId = EmailInfo.Id";
             var shows = new List<Show>();
-            using (var sqlConn = new SQLiteConnection(ConfigurationManager.ConnectionStrings["SonarrDatabase"].ConnectionString))
+            using (var sqlConn = new SQLiteConnection(_configurationHelper.ConnectionString))
             {
                 sqlConn.Open();
 

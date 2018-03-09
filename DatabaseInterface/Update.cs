@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Data.SQLite;
-using System.Configuration;
 using DatabaseInterface.Classes;
+using ApiLibrary.Interfaces;
+using ApiLibrary.Classes;
 
 namespace DatabaseInterface
 {
     public partial class Update : Form
     {
+        private readonly IConfigurationHelper _configurationHelper = new ConfigurationHelper();
+
         public Update()
         {
             InitializeComponent();
@@ -20,7 +23,7 @@ namespace DatabaseInterface
             {
                 var sql = "SELECT * FROM SonarrInfo";
 
-                using (var sqlConn = new SQLiteConnection($"Data Source={ConfigurationManager.AppSettings["SonarrDatabasePath"]};Version=3;"))
+                using (var sqlConn = new SQLiteConnection(_configurationHelper.ConnectionString))
                 {
                     sqlConn.Open();
 

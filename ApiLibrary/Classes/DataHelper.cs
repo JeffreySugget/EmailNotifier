@@ -9,13 +9,20 @@ namespace ApiLibrary.Classes
 {
     public class DataHelper : IDataHelper
     {
+        private readonly IConfigurationHelper _configurationHelper;
+
+        public DataHelper(IConfigurationHelper configurationHelper)
+        {
+            _configurationHelper = configurationHelper;
+        }
+
         public string GetApiCall(string endPoint, string parameters = null)
         {
             var getSonarrInfoSql = "SELECT ApiKey, IpAddress FROM SonarrInfo";
             var apiCall = new StringBuilder();
             var sonarrInfo = new List<string>();
 
-            using (var sqlConn = new SQLiteConnection("Data Source=C:\\SonarrDatabase\\SonarrInfoDatabase;Version=3;"))
+            using (var sqlConn = new SQLiteConnection(_configurationHelper.ConnectionString))
             {
                 sqlConn.Open();
 
@@ -48,7 +55,7 @@ namespace ApiLibrary.Classes
             var sql = "SELECT IpAddress FROM SonarrInfo";
             var baseUrl = string.Empty;
 
-            using (var sqlConn = new SQLiteConnection("Data Source=C:\\SonarrDatabase\\SonarrInfoDatabase;Version=3;"))
+            using (var sqlConn = new SQLiteConnection(_configurationHelper.ConnectionString))
             {
                 sqlConn.Open();
 
@@ -71,7 +78,7 @@ namespace ApiLibrary.Classes
             var sql = "SELECT Address FROM EmailInfo";
             var emails = new List<string>();
 
-            using (var sqlConn = new SQLiteConnection($"Data Source={ConfigurationManager.AppSettings["SonarrDatabasePath"]};Version=3;"))
+            using (var sqlConn = new SQLiteConnection(_configurationHelper.ConnectionString))
             {
                 sqlConn.Open();
 

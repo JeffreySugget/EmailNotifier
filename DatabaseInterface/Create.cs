@@ -14,8 +14,9 @@ namespace DatabaseInterface
 {
     public partial class Create : Form
     {
-        private readonly IDataHelper _dataHelper = new DataHelper();
-        private readonly IApiHelper _apiHelper = new ApiHelper(new DataHelper());
+        private static readonly IConfigurationHelper _configurationHelper = new ConfigurationHelper();
+        private readonly IDataHelper _dataHelper = new DataHelper(_configurationHelper);
+        private readonly IApiHelper _apiHelper = new ApiHelper(new DataHelper(_configurationHelper));
 
         public Create()
         {

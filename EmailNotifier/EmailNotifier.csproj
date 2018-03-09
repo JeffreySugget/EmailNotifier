@@ -95,11 +95,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\ConfigurationHelper.cs" />
     <Compile Include="Classes\DataProcessor.cs" />
     <Compile Include="Classes\EmailHelper.cs" />
     <Compile Include="DependancyInjection\ContainerConfig.cs" />
-    <Compile Include="Interfaces\IConfigurationHelper.cs" />
     <Compile Include="Interfaces\IDataProcessor.cs" />
     <Compile Include="Interfaces\IEmailHelper.cs" />
     <Compile Include="Models\DownloadsRoot.cs" />

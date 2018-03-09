@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EmailNotifier.Interfaces;
+using ApiLibrary.Interfaces;
 
 namespace EmailNotifier.Models
 {

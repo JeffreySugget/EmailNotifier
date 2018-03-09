@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace EmailNotifier.Interfaces
+namespace ApiLibrary.Interfaces
 {
     public interface IConfigurationHelper
     {
@@ -13,5 +11,7 @@ namespace EmailNotifier.Interfaces
         string FromAddress { get; }
 
         string KaylaShows { get; }
+
+        string ConnectionString { get; }
     }
 }
