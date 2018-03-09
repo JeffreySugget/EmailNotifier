@@ -8,7 +8,6 @@ namespace EmailNotifier
     {
         static void Main(string[] args)
         {
-            //TODO: move DI code to own class
             var container = new UnityContainer();
             ContainerConfig.ConfigureContainer(container);
 

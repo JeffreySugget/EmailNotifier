@@ -29,22 +29,21 @@ namespace EmailNotifier.Classes
         public void ProcessShows()
         {
             var json = _apiHelper.Get(_dataHelper.GetApiCall("api/history", "sortKey=date&sortDir=desc"));
-            //var json = _apiHelper.Get("");
             var data = JsonConvert.DeserializeObject<DownloadsRoot>(json);
+
+            //var dbShows = 
 
             var subjectLines = new List<string>();
 
-            //foreach (var e in data.Episodes.Where(x => x.EventType == "grabbed"))
-            foreach (var e in data.Episodes)
+            var grabbed = data.Episodes.Where(x => string.Equals(x.EventType, "grabbed")).ToList();
+
+            foreach (var e in grabbed)
             {
-                if (e.EventType == "grabbed")
+                if (!_configurationHelper.KaylaShows.Split('|').Contains(e.Series.Title, StringComparer.InvariantCultureIgnoreCase))
                 {
-                    if (!_configurationHelper.KaylaShows.Split('|').Contains(e.Series.Title, StringComparer.InvariantCultureIgnoreCase))
+                    if (DateTime.Parse(e.Date) >= DateTime.Now.AddHours(-1))
                     {
-                        if (DateTime.Parse(e.Date) >= DateTime.Now.AddHours(-1))
-                        {
-                            CreateShowList(e, subjectLines);
-                        }
+                        CreateShowList(e, subjectLines);
                     }
                 }
             }
@@ -58,13 +57,14 @@ namespace EmailNotifier.Classes
         public void ProcessOtherShows()
         {
             var json = _apiHelper.Get(_dataHelper.GetApiCall("api/history", "sortKey=date&sortDir=desc"));
-            //var json = _apiHelper.Get("");
             var data = JsonConvert.DeserializeObject<DownloadsRoot>(json);
 
             var kaylaShows = _configurationHelper.KaylaShows.Split('|');
             var subjectLines = new List<string>();
 
-            foreach (var e in data.Episodes)
+            var grabbed = data.Episodes.Where(x => string.Equals(x.EventType, "grabbed"));
+
+            foreach (var e in grabbed)
             {
                 if (e.EventType == "grabbed")
                 {
