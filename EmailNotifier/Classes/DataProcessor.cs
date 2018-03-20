@@ -8,6 +8,8 @@ using EmailNotifier.Models;
 using Newtonsoft.Json;
 using ApiLibrary.Classes;
 using ApiLibrary.Interfaces;
+using ApiLibrary.Models;
+using MoreLinq;
 
 namespace EmailNotifier.Classes
 {
@@ -31,7 +33,9 @@ namespace EmailNotifier.Classes
             var json = _apiHelper.Get(_dataHelper.GetApiCall("api/history", "sortKey=date&sortDir=desc"));
             var data = JsonConvert.DeserializeObject<DownloadsRoot>(json);
 
-            //var dbShows = 
+            var dbShows = _dataHelper.GetDbShows();
+
+            var emails = GetEmailsFromShows(dbShows);
 
             var subjectLines = new List<string>();
 
@@ -45,6 +49,11 @@ namespace EmailNotifier.Classes
                     {
                         CreateShowList(e, subjectLines);
                     }
+                }
+
+                if (DateTime.Parse(e.Date) >= DateTime.Now.AddHours(-1))
+                {
+
                 }
             }
 
@@ -113,6 +122,11 @@ namespace EmailNotifier.Classes
             }
 
             _emailHelper.SendEmail(_emailHelper.CreateEmail(sb.ToString(), "Shows Downloaded", email));
+        }
+
+        private List<string> GetEmailsFromShows(IEnumerable<Show> shows)
+        {
+            return shows.DistinctBy(x => x.EmailAddress).Select(x => x.EmailAddress).ToList();
         }
     }
 }

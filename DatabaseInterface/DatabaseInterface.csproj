@@ -91,7 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\DatabaseHelper.cs" />
-    <Compile Include="Classes\Show.cs" />
     <Compile Include="EmailManager.cs">
       <SubType>Form</SubType>
     </Compile>

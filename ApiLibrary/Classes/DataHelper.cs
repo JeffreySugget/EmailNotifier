@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data.SQLite;
 using System.Text;
 using ApiLibrary.Interfaces;
+using ApiLibrary.Models;
 
 namespace ApiLibrary.Classes
 {
@@ -71,6 +72,34 @@ namespace ApiLibrary.Classes
             }
 
             return baseUrl;
+        }
+
+        public List<Show> GetDbShows()
+        {
+            var shows = new List<Show>();
+
+            const string sql = @"SELECT ShowName, Address FROM ShowInfo INNER JOIN EmailInfo on ShowInfo.EmailId = EmailInfo.Id";
+
+            using (var sqlConn = new SQLiteConnection(_configurationHelper.ConnectionString))
+            {
+                sqlConn.Open();
+
+                using (var sqlCmd = new SQLiteCommand(sql, sqlConn))
+                {
+                    var dr = sqlCmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        shows.Add(new Show
+                        {
+                            Name = dr["ShowName"].ToString(),
+                            EmailAddress = dr["Address"].ToString()
+                        });
+                    }
+                }
+            }
+
+            return shows;
         }
 
         public IEnumerable<string> GetEmails()
